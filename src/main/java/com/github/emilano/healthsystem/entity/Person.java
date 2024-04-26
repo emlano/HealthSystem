@@ -8,6 +8,38 @@ package com.github.emilano.healthsystem.entity;
  *
  * @author emilano
  */
-public class Person {
+public abstract class Person {
+    private String name;
+    private String contactNum;
+    private String address;
     
+    public Person(String name, String contact, String address) {
+        this.name = name;
+        this.contactNum = contact;
+        this.address = address;
+    }
+    
+    public void setName(String newName) {
+        this.name = newName;
+    }
+    
+    public void setContact(String newContact) {
+        this.contactNum = newContact;
+    }
+    
+    public void setAddress(String newAddress) {
+        this.address = newAddress;
+    }
+    
+    public String getName() {
+        return this.name;
+    }
+    
+    public String getContact() {
+        return contactNum;
+    }
+    
+    public String getAddress() {
+        return address;
+    }
 }

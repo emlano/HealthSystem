@@ -8,6 +8,29 @@ package com.github.emilano.healthsystem.entity;
  *
  * @author emilano
  */
-public class Patient {
+public class Patient extends Person {
+    private String status;
+    private MedicalRecord history;
     
+    public Patient(String name, String contact, String address, String status, MedicalRecord history) {
+        super(name, contact, address);
+        this.status = status;
+        this.history = history;
+    }
+    
+    public void setStatus(String newStatus) {
+        this.status = newStatus;
+    }
+    
+    public void setMedicalHistory(MedicalRecord newRecord) {
+        this.history = newRecord;
+    }
+    
+    public String getStatus() {
+        return this.status;
+    }
+    
+    public MedicalRecord getMedicalRecord() {
+        return this.history;
+    }
 }
