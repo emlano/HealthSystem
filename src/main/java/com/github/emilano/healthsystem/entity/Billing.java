@@ -7,26 +7,34 @@ package com.github.emilano.healthsystem.entity;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author emilano
  */
 public class Billing {
+    private long id;
     private Invoice invoice;
-    private ArrayList<Payment> payments;
+    private List<Payment> payments;
     private double dueAmount;
     
-    public Billing(Invoice invoice, double dueAmount) {
+    public Billing(long id, Invoice invoice, double dueAmount) {
+        this.id = id;
         this.invoice = invoice;
         this.dueAmount = dueAmount;
         this.payments = new ArrayList<>();
     }
     
-    public Billing(Invoice invoice, double dueAmount, ArrayList<Payment> payments) {
+    public Billing(long id, Invoice invoice, double dueAmount, ArrayList<Payment> payments) {
+        this.id = id;
         this.invoice = invoice;
         this.dueAmount = dueAmount;
         this.payments = payments;
+    }
+    
+    public long getId() {
+        return this.id;
     }
     
     public void setInvoice(Invoice invoice) {
@@ -49,7 +57,7 @@ public class Billing {
         return this.dueAmount;
     }
     
-    public ArrayList<Payment> getPayments() {
+    public List<Payment> getPayments() {
         return this.payments;
     }
     

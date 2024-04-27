@@ -5,19 +5,23 @@
 package com.github.emilano.healthsystem.entity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author emilano
  */
 public class Prescription {
-    private ArrayList<Medication> medications;
+    private long id;
+    private List<Medication> medications;
     
-    public Prescription() {
+    public Prescription(long id) {
+        this.id = id;
         this.medications = new ArrayList<>();
     }
     
-    public Prescription(ArrayList<Medication> medications) {
+    public Prescription(long id, ArrayList<Medication> medications) {
+        this.id = id;
         this.medications = medications;
     }
     
@@ -25,7 +29,7 @@ public class Prescription {
         this.medications = medications;
     }
     
-    public ArrayList<Medication> getMedications() {
+    public List<Medication> getMedications() {
         return this.medications;
     }
 }

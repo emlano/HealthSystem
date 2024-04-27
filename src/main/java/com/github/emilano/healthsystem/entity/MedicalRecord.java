@@ -6,22 +6,25 @@ package com.github.emilano.healthsystem.entity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author emilano
  */
 public class MedicalRecord {
-    private ArrayList<Diagnosis> diagnoses;
-    private ArrayList<Treatment> treatments;
+    private long id;
+    private List<Diagnosis> diagnoses;
+    private List<Treatment> treatments;
     
-    public MedicalRecord(ArrayList<Diagnosis> diagnoses, ArrayList<Treatment> treatments) {
+    public MedicalRecord(long id, ArrayList<Diagnosis> diagnoses, ArrayList<Treatment> treatments) {
+        this.id = id;
         this.diagnoses = diagnoses;
         this.treatments = treatments;
     }
     
-    public MedicalRecord() {
-        this(new ArrayList<>(), new ArrayList<>());
+    public MedicalRecord(long id) {
+        this(id, new ArrayList<>(), new ArrayList<>());
     }
     
     public void setDiagnoses(ArrayList<Diagnosis> diagnoses) {
@@ -32,11 +35,11 @@ public class MedicalRecord {
         this.treatments = treatments;
     }
     
-    public ArrayList<Diagnosis> getDiagnoses() {
+    public List<Diagnosis> getDiagnoses() {
         return this.diagnoses;
     }
     
-    public ArrayList<Treatment> getTreatments() {
+    public List<Treatment> getTreatments() {
         return this.treatments;
     }
     

@@ -4,8 +4,6 @@
  */
 package com.github.emilano.healthsystem.entity;
 
-import com.github.emilano.healthsystem.exception.ImmutableIDException;
-
 /**
  *
  * @author emilano

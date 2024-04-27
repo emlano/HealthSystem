@@ -34,6 +34,10 @@ public class Appointment {
         this.time = time;
     }
     
+    public long getId() {
+        return this.id;
+    }
+    
     public void setDate(int year, int month, int day) {
         this.date = LocalDate.of(year, month, day);
     }
