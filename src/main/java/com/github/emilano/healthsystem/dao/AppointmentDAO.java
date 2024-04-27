@@ -5,11 +5,13 @@
 package com.github.emilano.healthsystem.dao;
 
 import com.github.emilano.healthsystem.entity.*;
+import java.util.List;
 
 /**
  *
  * @author emilano
  */
-public class AppointmentDAO {
-    
+public interface AppointmentDAO {
+    List<Object> getAllAppointments();
+    Appointment getAppointment(long time);
 }

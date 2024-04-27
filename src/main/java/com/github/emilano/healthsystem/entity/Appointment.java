@@ -24,6 +24,13 @@ public class Appointment {
         this.patient = patient;
     }
     
+    public Appointment(Doctor doctor, Patient patient, LocalDate date, LocalTime time) {
+        this.doctor = doctor;
+        this.patient = patient;
+        this.date = date;
+        this.time = time;
+    }
+    
     public void setDate(int year, int month, int day) {
         this.date = LocalDate.of(year, month, day);
     }
