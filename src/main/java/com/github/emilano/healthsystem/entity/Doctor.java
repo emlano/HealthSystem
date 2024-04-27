@@ -18,6 +18,12 @@ public class Doctor extends Person {
         this.officeContact = office;
     }
     
+    public Doctor(long id, String name, String contact, String address, String specialization, String office) {
+        super(id, name, contact, address);
+        this.specialization = specialization;
+        this.officeContact = officeContact;
+    }
+    
     public void setSpecialization(String newSpecialization) {
         this.specialization = newSpecialization;
     }
