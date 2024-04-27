@@ -11,24 +11,15 @@ import com.github.emilano.healthsystem.exception.ImmutableIDException;
  * @author emilano
  */
 public abstract class Person {
-    private long id;
+    private final long id;
     private String name;
     private String contactNum;
     private String address;
     
-    public Person(String name, String contact, String address) {
+    public Person(long id, String name, String contact, String address) {
         this.name = name;
         this.contactNum = contact;
         this.address = address;
-    }
-    
-    public Person(long id, String name, String contact, String address) {
-        this(name, contact, address);
-        this.id = id;
-    }
-    
-    public void setId(long id) throws ImmutableIDException {
-        if (id != 0) throw new ImmutableIDException();
         this.id = id;
     }
     

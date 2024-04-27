@@ -12,12 +12,6 @@ public class Doctor extends Person {
     private String specialization;
     private String officeContact;
     
-    public Doctor(String name, String contact, String address, String specialization, String office) {
-        super(name, contact, address);
-        this.specialization = specialization;
-        this.officeContact = office;
-    }
-    
     public Doctor(long id, String name, String contact, String address, String specialization, String office) {
         super(id, name, contact, address);
         this.specialization = specialization;

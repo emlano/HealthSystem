@@ -12,19 +12,22 @@ import java.time.LocalTime;
  * @author emilano
  */
 public class Appointment {
+    private long id;
     private LocalDate date;
     private LocalTime time;
     private Doctor doctor;
     private Patient patient;
     
-    public Appointment(Doctor doctor, Patient patient) {
+    public Appointment(long id, Doctor doctor, Patient patient) {
+        this.id = id;
         this.date = LocalDate.now();
         this.time = LocalTime.now();
         this.doctor = doctor;
         this.patient = patient;
     }
     
-    public Appointment(Doctor doctor, Patient patient, LocalDate date, LocalTime time) {
+    public Appointment(long id, Doctor doctor, Patient patient, LocalDate date, LocalTime time) {
+        this.id = id;
         this.doctor = doctor;
         this.patient = patient;
         this.date = date;
