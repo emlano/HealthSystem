@@ -25,6 +25,10 @@ public class Prescription {
         this.medications = medications;
     }
     
+    public long getId() {
+        return this.id;
+    }
+    
     public void setMedications(ArrayList<Medication> medications) {
         this.medications = medications;
     }

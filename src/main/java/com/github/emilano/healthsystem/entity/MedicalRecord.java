@@ -27,6 +27,10 @@ public class MedicalRecord {
         this(id, new ArrayList<>(), new ArrayList<>());
     }
     
+    public long getId() {
+        return this.id;
+    }
+    
     public void setDiagnoses(ArrayList<Diagnosis> diagnoses) {
         this.diagnoses = diagnoses;
     }
