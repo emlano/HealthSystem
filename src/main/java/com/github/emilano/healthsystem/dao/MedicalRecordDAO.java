@@ -5,6 +5,7 @@
 package com.github.emilano.healthsystem.dao;
 
 import com.github.emilano.healthsystem.entity.*;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,8 +17,8 @@ import java.util.Map;
 public class MedicalRecordDAO {
     private static Map<Long, MedicalRecord> records = new HashMap<>();
     
-    public static List<MedicalRecord> getAllMedicalRecords() {
-        return records.values().stream().toList();
+    public static Collection<MedicalRecord> getAllMedicalRecords() {
+        return records.values();
     }
     
     public static MedicalRecord getMedicalRecord(long id) {

@@ -5,8 +5,8 @@
 package com.github.emilano.healthsystem.dao;
 
 import com.github.emilano.healthsystem.entity.*;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,8 +16,8 @@ import java.util.Map;
 public class BillingDAO {
     private static Map<Long, Billing> billings = new HashMap<>();
     
-    public static List<Billing> getAllBilling() {
-        return billings.values().stream().toList();
+    public static Collection<Billing> getAllBilling() {
+        return billings.values();
     }
     
     public static Billing getBilling(long id) {
