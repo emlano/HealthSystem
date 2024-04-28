@@ -27,12 +27,6 @@ public class Billing {
         this.payments = new ArrayList<>();
     }
     
-    public Billing(@JsonProperty("invoice") Invoice invoice, @JsonProperty("dueAmount") double dueAmount, @JsonProperty("payments") ArrayList<Payment> payments) {
-        this.invoice = invoice;
-        this.dueAmount = dueAmount;
-        this.payments = payments;
-    }
-    
     public long getId() {
         return this.id;
     }
@@ -128,12 +122,6 @@ class Payment {
         this.amount = amount;
         this.date = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
         this.time = LocalTime.now().format(DateTimeFormatter.ISO_LOCAL_TIME);
-    }
-    
-    public Payment(@JsonProperty("amount") double amount, @JsonProperty("date") String date, @JsonProperty("time") String time) {
-        this.amount = amount;
-        this.date = date;
-        this.time = time;
     }
     
     public void setAmount(double amount) {

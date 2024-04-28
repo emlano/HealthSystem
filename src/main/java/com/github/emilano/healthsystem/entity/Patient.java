@@ -14,7 +14,7 @@ public class Patient extends Person {
     private String status;
     private MedicalRecord history;
     
-    public Patient(@JsonProperty("name") String name, @JsonProperty("contact") String contact, @JsonProperty("address") String address, @JsonProperty("status") String status, @JsonProperty("history") MedicalRecord history) {
+    public Patient(@JsonProperty("name") String name, @JsonProperty("contact") String contact, @JsonProperty("address") String address, @JsonProperty("status") String status, @JsonProperty("medicalRecord") MedicalRecord history) {
         super(name, contact, address);
         this.status = status;
         this.history = history;

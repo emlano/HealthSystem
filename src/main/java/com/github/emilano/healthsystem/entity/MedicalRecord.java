@@ -77,12 +77,6 @@ class Diagnosis {
         this.dateOfDiagnosis = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
     }
     
-    public Diagnosis(@JsonProperty("doctor") Doctor doctor, @JsonProperty("diagnoses") String diagnosis, @JsonProperty("dateOfDiagnosis") String dateOfDiagnosis) {
-        this.doctor = doctor;
-        this.diagnosis = diagnosis;
-        this.dateOfDiagnosis = dateOfDiagnosis;
-    }
-    
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
     }
@@ -118,12 +112,6 @@ class Treatment {
         this.doctor = doctor;
         this.procedure = procedure;
         this.dateOfTreatment = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
-    }
-    
-    public Treatment(@JsonProperty("doctor") Doctor doctor, @JsonProperty("procedure") String procedure, @JsonProperty("dateOfTreatment") String dateOfTreatment) {
-        this.doctor = doctor;
-        this.procedure = procedure;
-        this.dateOfTreatment = dateOfTreatment;
     }
     
     public void setDoctor(Doctor doctor) {

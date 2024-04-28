@@ -27,13 +27,6 @@ public class Appointment {
         this.patient = patient;
     }
     
-    public Appointment(@JsonProperty("doctor") Doctor doctor, @JsonProperty("patient") Patient patient, @JsonProperty("date") String date, @JsonProperty("time") String time) {
-        this.doctor = doctor;
-        this.patient = patient;
-        this.date = date;
-        this.time = time;
-    }
-    
     public long getId() {
         return this.id;
     }

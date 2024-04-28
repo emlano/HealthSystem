@@ -16,10 +16,6 @@ public class Prescription {
     private long id;
     private List<Medication> medications;
     
-    public Prescription(long id) {
-        this.medications = new ArrayList<>();
-    }
-    
     public Prescription(@JsonProperty("medications") ArrayList<Medication> medications) {
         this.medications = medications;
     }
