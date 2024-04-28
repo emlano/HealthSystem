@@ -4,6 +4,7 @@
  */
 package com.github.emilano.healthsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -19,13 +20,13 @@ public class Billing {
     private List<Payment> payments;
     private double dueAmount;
     
-    public Billing(Invoice invoice, double dueAmount) {
+    public Billing(@JsonProperty("invoice") Invoice invoice, @JsonProperty("dueAmount") double dueAmount) {
         this.invoice = invoice;
         this.dueAmount = dueAmount;
         this.payments = new ArrayList<>();
     }
     
-    public Billing(Invoice invoice, double dueAmount, ArrayList<Payment> payments) {
+    public Billing(@JsonProperty("invoice") Invoice invoice, @JsonProperty("dueAmount") double dueAmount, @JsonProperty("payments") ArrayList<Payment> payments) {
         this.invoice = invoice;
         this.dueAmount = dueAmount;
         this.payments = payments;
@@ -76,7 +77,7 @@ class Invoice {
     private MedicalRecord record;
     private Prescription prescription;
     
-    public Invoice(Doctor doctor, Patient patient, MedicalRecord record, Prescription prescription) {
+    public Invoice(@JsonProperty("doctor") Doctor doctor, @JsonProperty("patient") Patient patient, @JsonProperty("record") MedicalRecord record, @JsonProperty("prescription") Prescription prescription) {
         this.doctor = doctor;
         this.patient = patient;
         this.record = record;
@@ -122,13 +123,13 @@ class Payment {
     private LocalDate date;
     private LocalTime time;
     
-    public Payment(double amount) {
+    public Payment(@JsonProperty("amount") double amount) {
         this.amount = amount;
         this.date = LocalDate.now();
         this.time = LocalTime.now();
     }
     
-    public Payment(double amount, int hour, int minute, int day, int month, int year) {
+    public Payment(@JsonProperty("amount") double amount, @JsonProperty("hour") int hour, @JsonProperty("minute") int minute, @JsonProperty("day") int day, @JsonProperty("month") int month, @JsonProperty("year") int year) {
         this.amount = amount;
         this.date = LocalDate.of(year, month, day);
         this.time = LocalTime.of(hour, minute);

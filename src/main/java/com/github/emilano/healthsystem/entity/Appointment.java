@@ -4,6 +4,7 @@
  */
 package com.github.emilano.healthsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -18,18 +19,18 @@ public class Appointment {
     private Doctor doctor;
     private Patient patient;
     
-    public Appointment(Doctor doctor, Patient patient) {
+    public Appointment(@JsonProperty("doctor") Doctor doctor, @JsonProperty("patient") Patient patient) {
         this.date = LocalDate.now();
         this.time = LocalTime.now();
         this.doctor = doctor;
         this.patient = patient;
     }
     
-    public Appointment(Doctor doctor, Patient patient, LocalDate date, LocalTime time) {
+    public Appointment(@JsonProperty("doctor") Doctor doctor, @JsonProperty("patient") Patient patient, @JsonProperty("minute") int minute, @JsonProperty("hour") int hour, @JsonProperty("day") int day, @JsonProperty("month") int month, @JsonProperty("year") int year) {
         this.doctor = doctor;
         this.patient = patient;
-        this.date = date;
-        this.time = time;
+        this.date = LocalDate.of(year, month, day);
+        this.time = LocalTime.of(hour, minute);
     }
     
     public long getId() {
@@ -45,7 +46,7 @@ public class Appointment {
     }
     
     public void setTime(int hours, int minutes) {
-        this.time = LocalTime.of(hours, minutes, 0);
+        this.time = LocalTime.of(hours, minutes);
     }
     
     public void setDoctor(Doctor newDoctor) {

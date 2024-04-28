@@ -4,6 +4,8 @@
  */
 package com.github.emilano.healthsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  *
  * @author emilano
@@ -12,7 +14,7 @@ public class Patient extends Person {
     private String status;
     private MedicalRecord history;
     
-    public Patient(long id, String name, String contact, String address, String status, MedicalRecord history) {
+    public Patient(@JsonProperty("name") String name, @JsonProperty("contact") String contact, @JsonProperty("address") String address, @JsonProperty("status") String status, @JsonProperty("history") MedicalRecord history) {
         super(name, contact, address);
         this.status = status;
         this.history = history;

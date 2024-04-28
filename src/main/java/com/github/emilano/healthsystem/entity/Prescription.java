@@ -4,6 +4,7 @@
  */
 package com.github.emilano.healthsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class Prescription {
         this.medications = new ArrayList<>();
     }
     
-    public Prescription(long id, ArrayList<Medication> medications) {
+    public Prescription(@JsonProperty("medications") ArrayList<Medication> medications) {
         this.medications = medications;
     }
     
@@ -46,7 +47,7 @@ class Medication {
     private String instructions;
     private double duration;
 
-    public Medication(String dosage, String instructions, double duration) {
+    public Medication(@JsonProperty("dosage") String dosage, @JsonProperty("instructions") String instructions, @JsonProperty("duration") double duration) {
         this.dosage = dosage;
         this.duration = duration;
         this.instructions = instructions;

@@ -4,6 +4,8 @@
  */
 package com.github.emilano.healthsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  *
  * @author emilano
@@ -12,10 +14,10 @@ public class Doctor extends Person {
     private String specialization;
     private String officeContact;
     
-    public Doctor(String name, String contact, String address, String specialization, String office) {
+    public Doctor(@JsonProperty("name") String name, @JsonProperty("contact") String contact, @JsonProperty("address") String address, @JsonProperty("specialization") String specialization, @JsonProperty("officeContact") String officeContact) {
         super(name, contact, address);
         this.specialization = specialization;
-        this.officeContact = office;
+        this.officeContact = officeContact;
     }
     
     public void setSpecialization(String newSpecialization) {

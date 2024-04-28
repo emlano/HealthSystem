@@ -4,6 +4,7 @@
  */
 package com.github.emilano.healthsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,13 +18,9 @@ public class MedicalRecord {
     private List<Diagnosis> diagnoses;
     private List<Treatment> treatments;
     
-    public MedicalRecord(ArrayList<Diagnosis> diagnoses, ArrayList<Treatment> treatments) {
+    public MedicalRecord(@JsonProperty("diagnoses") ArrayList<Diagnosis> diagnoses, @JsonProperty("treatments") ArrayList<Treatment> treatments) {
         this.diagnoses = diagnoses;
         this.treatments = treatments;
-    }
-    
-    public MedicalRecord(long id) {
-        this(new ArrayList<>(), new ArrayList<>());
     }
     
     public long getId() {
@@ -73,16 +70,16 @@ class Diagnosis {
     private String diagnosis;
     private LocalDate dateOfDiagnosis;
     
-    public Diagnosis(Doctor doctor, String diagnosis) {
+    public Diagnosis(@JsonProperty("doctor") Doctor doctor, @JsonProperty("diagnosis") String diagnosis) {
         this.doctor = doctor;
         this.diagnosis = diagnosis;
         this.dateOfDiagnosis = LocalDate.now();
     }
     
-    public Diagnosis(Doctor doctor, String diagnosis, LocalDate dateDiagnosed) {
+    public Diagnosis(@JsonProperty("doctor") Doctor doctor, @JsonProperty("diagnoses") String diagnosis, @JsonProperty("day") int day, @JsonProperty("month") int month, @JsonProperty("year") int year) {
         this.doctor = doctor;
         this.diagnosis = diagnosis;
-        this.dateOfDiagnosis = dateDiagnosed;
+        this.dateOfDiagnosis = LocalDate.of(year, month, day);
     }
     
     public void setDoctor(Doctor doctor) {
@@ -116,16 +113,16 @@ class Treatment {
     private String procedure;
     private LocalDate dateOfTreatment;
     
-    public Treatment(Doctor doctor, String procedure) {
+    public Treatment(@JsonProperty("doctor") Doctor doctor, @JsonProperty("procedure") String procedure) {
         this.doctor = doctor;
         this.procedure = procedure;
         this.dateOfTreatment = LocalDate.now();
     }
     
-    public Treatment(Doctor doctor, String procedure, LocalDate dateOfTreatment) {
+    public Treatment(@JsonProperty("doctor") Doctor doctor, @JsonProperty("procedure") String procedure, @JsonProperty("day") int day, @JsonProperty("month") int month, @JsonProperty("year") int year) {
         this.doctor = doctor;
         this.procedure = procedure;
-        this.dateOfTreatment = dateOfTreatment;
+        this.dateOfTreatment = LocalDate.of(year, month, day);
     }
     
     public void setDoctor(Doctor doctor) {
