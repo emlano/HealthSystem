@@ -7,6 +7,7 @@ package com.github.emilano.healthsystem.entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -120,30 +121,30 @@ class Invoice {
 
 class Payment {
     private double amount;
-    private LocalDate date;
-    private LocalTime time;
+    private String date;
+    private String time;
     
     public Payment(@JsonProperty("amount") double amount) {
         this.amount = amount;
-        this.date = LocalDate.now();
-        this.time = LocalTime.now();
+        this.date = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
+        this.time = LocalTime.now().format(DateTimeFormatter.ISO_LOCAL_TIME);
     }
     
-    public Payment(@JsonProperty("amount") double amount, @JsonProperty("hour") int hour, @JsonProperty("minute") int minute, @JsonProperty("day") int day, @JsonProperty("month") int month, @JsonProperty("year") int year) {
+    public Payment(@JsonProperty("amount") double amount, @JsonProperty("date") String date, @JsonProperty("time") String time) {
         this.amount = amount;
-        this.date = LocalDate.of(year, month, day);
-        this.time = LocalTime.of(hour, minute);
+        this.date = date;
+        this.time = time;
     }
     
     public void setAmount(double amount) {
         this.amount = amount;
     }
     
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
     
-    public void setTime(LocalTime time) {
+    public void setTime(String time) {
         this.time = time;
     }
     
@@ -151,11 +152,11 @@ class Payment {
         return this.amount;
     }
     
-    public LocalDate getDate() {
+    public String getDate() {
         return this.date;
     }
     
-    public LocalTime getTime() {
+    public String getTime() {
         return this.time;
     }
 }
