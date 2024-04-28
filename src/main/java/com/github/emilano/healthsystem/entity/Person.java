@@ -8,7 +8,7 @@ package com.github.emilano.healthsystem.entity;
  *
  * @author emilano
  */
-public abstract class Person {
+public class Person {
     private final long id;
     private String name;
     private String contactNum;
