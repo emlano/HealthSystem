@@ -4,6 +4,7 @@
  */
 package com.github.emilano.healthsystem.dao;
 
+import com.github.emilano.healthsystem.SharedUtils;
 import com.github.emilano.healthsystem.entity.*;
 import java.util.Collection;
 import java.util.HashMap;
@@ -25,7 +26,8 @@ public class BillingDAO {
     }
     
     public static void addBilling(Billing bill) {
-        billings.put(bill.getId(), bill);
+        SharedUtils<Billing> utils = new SharedUtils<>();
+        billings.put(utils.getNextId(billings), bill);
     }
     
     public static void updateBilling(Billing bill) {

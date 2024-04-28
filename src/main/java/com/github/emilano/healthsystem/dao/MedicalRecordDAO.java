@@ -4,10 +4,10 @@
  */
 package com.github.emilano.healthsystem.dao;
 
+import com.github.emilano.healthsystem.SharedUtils;
 import com.github.emilano.healthsystem.entity.*;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,7 +26,8 @@ public class MedicalRecordDAO {
     }
     
     public static void addMedicalRecord(MedicalRecord record) {
-        records.put(record.getId(), record);
+        SharedUtils<MedicalRecord> utils = new SharedUtils<>();
+        records.put(utils.getNextId(records), record);
     }
     
     

@@ -4,6 +4,7 @@
  */
 package com.github.emilano.healthsystem.dao;
 
+import com.github.emilano.healthsystem.SharedUtils;
 import com.github.emilano.healthsystem.entity.*;
 import java.util.Collection;
 import java.util.HashMap;
@@ -25,7 +26,8 @@ public class AppointmentDAO {
     }
     
     public static void addAppointment(Appointment appt) {
-        appointments.put(appt.getId(), appt);
+        SharedUtils<Appointment> utils = new SharedUtils<>();
+        appointments.put(utils.getNextId(appointments), appt);
     }
     
     public static void updateAppointment(Appointment appt) {
