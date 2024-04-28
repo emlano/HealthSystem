@@ -15,7 +15,7 @@ public class Doctor extends Person {
     public Doctor(long id, String name, String contact, String address, String specialization, String office) {
         super(id, name, contact, address);
         this.specialization = specialization;
-        this.officeContact = officeContact;
+        this.officeContact = office;
     }
     
     public void setSpecialization(String newSpecialization) {
