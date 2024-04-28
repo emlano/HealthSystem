@@ -13,7 +13,7 @@ public class Patient extends Person {
     private MedicalRecord history;
     
     public Patient(long id, String name, String contact, String address, String status, MedicalRecord history) {
-        super(id, name, contact, address);
+        super(name, contact, address);
         this.status = status;
         this.history = history;
     }

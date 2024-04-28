@@ -26,8 +26,9 @@ public class PatientDAO {
     }
     
     public static void addPatient(Patient patient) {
-        SharedUtils<Patient> utils = new SharedUtils<>();
-        patients.put(utils.getNextId(patients), patient);
+        long id = new SharedUtils<Patient>().getNextId(patients);
+        patient.setId(id);
+        patients.put(id, patient);
     }
     
     public static void updatePatient(Patient patient) {

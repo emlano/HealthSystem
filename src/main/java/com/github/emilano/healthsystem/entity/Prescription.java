@@ -16,17 +16,19 @@ public class Prescription {
     private List<Medication> medications;
     
     public Prescription(long id) {
-        this.id = id;
         this.medications = new ArrayList<>();
     }
     
     public Prescription(long id, ArrayList<Medication> medications) {
-        this.id = id;
         this.medications = medications;
     }
     
     public long getId() {
         return this.id;
+    }
+    
+    public void setId(long id) {
+        this.id = id;
     }
     
     public void setMedications(ArrayList<Medication> medications) {

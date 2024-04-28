@@ -18,16 +18,14 @@ public class Appointment {
     private Doctor doctor;
     private Patient patient;
     
-    public Appointment(long id, Doctor doctor, Patient patient) {
-        this.id = id;
+    public Appointment(Doctor doctor, Patient patient) {
         this.date = LocalDate.now();
         this.time = LocalTime.now();
         this.doctor = doctor;
         this.patient = patient;
     }
     
-    public Appointment(long id, Doctor doctor, Patient patient, LocalDate date, LocalTime time) {
-        this.id = id;
+    public Appointment(Doctor doctor, Patient patient, LocalDate date, LocalTime time) {
         this.doctor = doctor;
         this.patient = patient;
         this.date = date;
@@ -36,6 +34,10 @@ public class Appointment {
     
     public long getId() {
         return this.id;
+    }
+    
+    public void setId(long id) {
+        this.id = id;
     }
     
     public void setDate(int year, int month, int day) {

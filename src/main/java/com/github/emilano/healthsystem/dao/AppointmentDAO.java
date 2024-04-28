@@ -26,8 +26,9 @@ public class AppointmentDAO {
     }
     
     public static void addAppointment(Appointment appt) {
-        SharedUtils<Appointment> utils = new SharedUtils<>();
-        appointments.put(utils.getNextId(appointments), appt);
+        long id = new SharedUtils<Appointment>().getNextId(appointments);
+        appt.setId(id);
+        appointments.put(id, appt);
     }
     
     public static void updateAppointment(Appointment appt) {

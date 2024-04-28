@@ -26,8 +26,9 @@ public class BillingDAO {
     }
     
     public static void addBilling(Billing bill) {
-        SharedUtils<Billing> utils = new SharedUtils<>();
-        billings.put(utils.getNextId(billings), bill);
+        long id = new SharedUtils<Billing>().getNextId(billings);
+        bill.setId(id);
+        billings.put(id, bill);
     }
     
     public static void updateBilling(Billing bill) {

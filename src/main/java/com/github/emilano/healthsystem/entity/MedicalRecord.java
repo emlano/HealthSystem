@@ -17,18 +17,21 @@ public class MedicalRecord {
     private List<Diagnosis> diagnoses;
     private List<Treatment> treatments;
     
-    public MedicalRecord(long id, ArrayList<Diagnosis> diagnoses, ArrayList<Treatment> treatments) {
-        this.id = id;
+    public MedicalRecord(ArrayList<Diagnosis> diagnoses, ArrayList<Treatment> treatments) {
         this.diagnoses = diagnoses;
         this.treatments = treatments;
     }
     
     public MedicalRecord(long id) {
-        this(id, new ArrayList<>(), new ArrayList<>());
+        this(new ArrayList<>(), new ArrayList<>());
     }
     
     public long getId() {
         return this.id;
+    }
+    
+    public void setId(long id) {
+        this.id = id;
     }
     
     public void setDiagnoses(ArrayList<Diagnosis> diagnoses) {

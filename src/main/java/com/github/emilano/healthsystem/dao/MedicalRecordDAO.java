@@ -26,8 +26,9 @@ public class MedicalRecordDAO {
     }
     
     public static void addMedicalRecord(MedicalRecord record) {
-        SharedUtils<MedicalRecord> utils = new SharedUtils<>();
-        records.put(utils.getNextId(records), record);
+        long id = new SharedUtils<MedicalRecord>().getNextId(records);
+        record.setId(id);
+        records.put(id, record);
     }
     
     

@@ -9,20 +9,23 @@ package com.github.emilano.healthsystem.entity;
  * @author emilano
  */
 public class Person {
-    private final long id;
+    private long id;
     private String name;
     private String contactNum;
     private String address;
     
-    public Person(long id, String name, String contact, String address) {
+    public Person(String name, String contact, String address) {
         this.name = name;
         this.contactNum = contact;
         this.address = address;
-        this.id = id;
     }
     
     public long getId() {
         return this.id;
+    }
+    
+    public void setId(long id) {
+        this.id = id;
     }
     
     public void setName(String newName) {

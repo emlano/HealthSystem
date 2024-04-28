@@ -19,15 +19,13 @@ public class Billing {
     private List<Payment> payments;
     private double dueAmount;
     
-    public Billing(long id, Invoice invoice, double dueAmount) {
-        this.id = id;
+    public Billing(Invoice invoice, double dueAmount) {
         this.invoice = invoice;
         this.dueAmount = dueAmount;
         this.payments = new ArrayList<>();
     }
     
-    public Billing(long id, Invoice invoice, double dueAmount, ArrayList<Payment> payments) {
-        this.id = id;
+    public Billing(Invoice invoice, double dueAmount, ArrayList<Payment> payments) {
         this.invoice = invoice;
         this.dueAmount = dueAmount;
         this.payments = payments;
@@ -35,6 +33,10 @@ public class Billing {
     
     public long getId() {
         return this.id;
+    }
+    
+    public void setId(long id) {
+        this.id = id;
     }
     
     public void setInvoice(Invoice invoice) {
