@@ -27,9 +27,6 @@ public class PersonResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<Person> getAllPersons() {
-        
-        PersonDAO.addPerson(new Doctor("John H. Watson", "078-6751325", "221b, Baker Street, London", "Surgeon", "055-5555"));
-        PersonDAO.addPerson(new Doctor("Arthur C. Doyle", "078-6751325", "221b, Baker Street, London", "Surgeon", "055-5555"));
         return PersonDAO.getAllPersons();
     }
     
