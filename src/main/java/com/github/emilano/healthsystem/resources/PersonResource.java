@@ -48,7 +48,6 @@ public class PersonResource {
     public void putPerson(@PathParam("id") int id, Person updated) {
         Person person = PersonDAO.getPerson(id);
         updated.setId(person.getId());
-        
         PersonDAO.updatePerson(updated);
     }
     

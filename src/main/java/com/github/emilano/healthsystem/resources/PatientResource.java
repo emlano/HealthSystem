@@ -44,8 +44,10 @@ public class PatientResource {
     
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public void putPatient(@PathParam("id") long id, Patient patient) {
-        PatientDAO.updatePatient(patient);
+    public void putPatient(@PathParam("id") long id, Patient updated) {
+        Patient patient = PatientDAO.getPatient(id);
+        updated.setId(id);
+        PatientDAO.updatePatient(updated);
     }
     
     @DELETE

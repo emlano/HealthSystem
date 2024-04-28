@@ -4,8 +4,8 @@
  */
 package com.github.emilano.healthsystem.resources;
 
-import com.github.emilano.healthsystem.dao.DoctorDAO;
-import com.github.emilano.healthsystem.entity.Doctor;
+import com.github.emilano.healthsystem.dao.AppointmentDAO;
+import com.github.emilano.healthsystem.entity.Appointment;
 import java.util.Collection;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -22,39 +22,39 @@ import javax.ws.rs.core.MediaType;
  * @author emilano
  */
 
-@Path("/doctor")
-public class DoctorResource {
+@Path("/appointment")
+public class AppointmentResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<Doctor> getAllDoctors() {
-        return DoctorDAO.getAllDoctors();
+    public Collection<Appointment> getAllAppointments() {
+        return AppointmentDAO.getAllAppointments();
     }
     
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Doctor getDoctor(@PathParam("id") long id) {
-        return DoctorDAO.getDoctor(id);
+    public Appointment getAppointment(@PathParam("id") long id) {
+        return AppointmentDAO.getAppointment(id);
     }
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void postDoctor(@PathParam("id") long id, Doctor doctor) {
-        DoctorDAO.addDoctor(doctor);
+    public void postAppointment(Appointment appointment) {
+        AppointmentDAO.addAppointment(appointment);
     }
     
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void putDoctor(@PathParam("id") long id, Doctor updated) {
-        Doctor doctor = DoctorDAO.getDoctor(id);
+    public void putAppointment(@PathParam("id") long id, Appointment updated) {
+        Appointment appt = AppointmentDAO.getAppointment(id);
         updated.setId(id);
-        DoctorDAO.updateDoctor(updated);
+        AppointmentDAO.updateAppointment(updated);
     }
     
     @DELETE
     @Path("/{id}")
-    public void deleteDoctor(@PathParam("id") long id) {
-        DoctorDAO.deleteDoctor(id);
+    public void deleteAppointment(@PathParam("id") long id) {
+        AppointmentDAO.deleteAppointment(id);
     }
 }
