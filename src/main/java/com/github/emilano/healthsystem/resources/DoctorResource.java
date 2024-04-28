@@ -4,8 +4,8 @@
  */
 package com.github.emilano.healthsystem.resources;
 
-import com.github.emilano.healthsystem.dao.PatientDAO;
-import com.github.emilano.healthsystem.entity.Patient;
+import com.github.emilano.healthsystem.dao.DoctorDAO;
+import com.github.emilano.healthsystem.entity.Doctor;
 import java.util.Collection;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -21,37 +21,38 @@ import javax.ws.rs.core.MediaType;
  *
  * @author emilano
  */
-@Path("/patient")
-public class PatientResource {
+
+@Path("/doctor")
+public class DoctorResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<Patient> getAllPatients() {
-        return PatientDAO.getAllPatient();
+    public Collection<Doctor> getAllDoctors() {
+        return DoctorDAO.getAllDoctors();
     }
     
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Patient getPatient(@PathParam("id") long id) {
-        return PatientDAO.getPatient(id);
+    public Doctor getDoctor(@PathParam("id") long id) {
+        return DoctorDAO.getDoctor(id);
     }
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void postPatient(Patient patient) {
-        PatientDAO.addPatient(patient);
+    public void postDoctor(@PathParam("id") long id, Doctor doctor) {
+        DoctorDAO.addDoctor(doctor);
     }
     
     @PUT
+    @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void putPatient(@PathParam("id") long id, Patient patient) {
-        PatientDAO.updatePatient(patient);
+    public void putDoctor(@PathParam("id") long id, Doctor doctor) {
+        DoctorDAO.updateDoctor(doctor);
     }
     
     @DELETE
     @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public void deletePatient(@PathParam("id") long id) {
-        PatientDAO.deletePatient(id);
+    public void deleteDoctor(@PathParam("id") long id) {
+        DoctorDAO.deleteDoctor(id);
     }
 }
