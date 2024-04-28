@@ -9,8 +9,10 @@ import com.github.emilano.healthsystem.entity.Doctor;
 import com.github.emilano.healthsystem.entity.Person;
 import java.util.Collection;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -26,8 +28,8 @@ public class PersonResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<Person> getAllPersons() {
         
-        PersonDAO.addPerson(new Doctor(0, "John H. Watson", "078-6751325", "221b, Baker Street, London", "Surgeon", "055-5555"));
-        PersonDAO.addPerson(new Doctor(1, "Arthur C. Doyle", "078-6751325", "221b, Baker Street, London", "Surgeon", "055-5555"));
+        PersonDAO.addPerson(new Doctor("John H. Watson", "078-6751325", "221b, Baker Street, London", "Surgeon", "055-5555"));
+        PersonDAO.addPerson(new Doctor("Arthur C. Doyle", "078-6751325", "221b, Baker Street, London", "Surgeon", "055-5555"));
         return PersonDAO.getAllPersons();
     }
     
@@ -41,6 +43,22 @@ public class PersonResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public void postPerson(Person person) {
+        PersonDAO.addPerson(person);
+    }
+    
+    @PUT
+    @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void putPerson(@PathParam("id") int id, Person updated) {
+        Person person = PersonDAO.getPerson(id);
+        updated.setId(person.getId());
         
+        PersonDAO.updatePerson(updated);
+    }
+    
+    @DELETE
+    @Path("/{id}")
+    public void deletePerson(@PathParam("id") int id) {
+        PersonDAO.deletePerson(id);
     }
 }
