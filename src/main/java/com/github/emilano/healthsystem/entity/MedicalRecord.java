@@ -67,22 +67,22 @@ public class MedicalRecord {
 
 
 class Diagnosis {
-    private Doctor doctor;
+    private long doctorId;
     private String diagnosis;
     private String dateOfDiagnosis;
     
-    public Diagnosis(@JsonProperty("doctor") Doctor doctor, @JsonProperty("diagnosis") String diagnosis) {
-        this.doctor = doctor;
+    public Diagnosis(@JsonProperty("doctorId") long doctorId, @JsonProperty("diagnosis") String diagnosis) {
+        this.doctorId = doctorId;
         this.diagnosis = diagnosis;
         this.dateOfDiagnosis = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
     }
     
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
+    public void setDoctor(long doctorId) {
+        this.doctorId = doctorId;
     }
     
-    public Doctor getDoctor() {
-        return this.doctor;
+    public long getDoctor() {
+        return this.doctorId;
     }
     
     public void setDiagnosis(String diagnosis) {
@@ -104,22 +104,22 @@ class Diagnosis {
 
 
 class Treatment {
-    private Doctor doctor;
+    private long doctorId;
     private String procedure;
     private String dateOfTreatment;
     
-    public Treatment(@JsonProperty("doctor") Doctor doctor, @JsonProperty("procedure") String procedure) {
-        this.doctor = doctor;
+    public Treatment(@JsonProperty("doctorId") long doctorId, @JsonProperty("procedure") String procedure) {
+        this.doctorId = doctorId;
         this.procedure = procedure;
         this.dateOfTreatment = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
     }
     
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
+    public void setDoctor(long doctor) {
+        this.doctorId = doctorId;
     }
     
-    public Doctor getDoctor() {
-        return this.doctor;
+    public long getDoctor() {
+        return this.doctorId;
     }
     
     public void setTreatment(String treatment) {

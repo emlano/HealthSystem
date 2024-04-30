@@ -6,6 +6,7 @@ package com.github.emilano.healthsystem.resources;
 
 import com.github.emilano.healthsystem.dao.AppointmentDAO;
 import com.github.emilano.healthsystem.entity.Appointment;
+import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
 import java.util.Collection;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -33,28 +34,40 @@ public class AppointmentResource {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Appointment getAppointment(@PathParam("id") long id) {
-        return AppointmentDAO.getAppointment(id);
+    public Appointment getAppointment(@PathParam("id") long id) throws ResourceNotFoundException {
+        Appointment appt = AppointmentDAO.getAppointment(id);
+        if (appt == null) throw new ResourceNotFoundException();
+        
+        return appt;
     }
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void postAppointment(Appointment appointment) {
+    @Produces(MediaType.TEXT_PLAIN)
+    public String postAppointment(Appointment appointment) {
         AppointmentDAO.addAppointment(appointment);
+        return "Status: OK";
     }
     
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void putAppointment(@PathParam("id") long id, Appointment updated) {
+    @Produces(MediaType.TEXT_PLAIN)
+    public String putAppointment(@PathParam("id") long id, Appointment updated) throws ResourceNotFoundException {
         Appointment appt = AppointmentDAO.getAppointment(id);
+        if (appt == null) throw new ResourceNotFoundException();
+        
         updated.setId(id);
         AppointmentDAO.updateAppointment(updated);
+        return "Status: OK";
     }
     
     @DELETE
     @Path("/{id}")
-    public void deleteAppointment(@PathParam("id") long id) {
-        AppointmentDAO.deleteAppointment(id);
+    public void deleteAppointment(@PathParam("id") long id) throws ResourceNotFoundException {
+        Appointment appt = AppointmentDAO.getAppointment(id);
+        if (appt == null) throw new  ResourceNotFoundException();
+        
+        AppointmentDAO.deleteAppointment(appt, id);
     }
 }

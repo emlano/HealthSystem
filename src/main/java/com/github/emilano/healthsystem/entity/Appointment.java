@@ -17,14 +17,14 @@ public class Appointment {
     private long id;
     private String date;
     private String time;
-    private Doctor doctor;
-    private Patient patient;
+    private long doctorId;
+    private long patientId;
     
-    public Appointment(@JsonProperty("doctor") Doctor doctor, @JsonProperty("patient") Patient patient) {
+    public Appointment(@JsonProperty("doctorId") long doctorId, @JsonProperty("patientId") long patientId) {
         this.date = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
         this.time = LocalTime.now().format(DateTimeFormatter.ISO_LOCAL_TIME);
-        this.doctor = doctor;
-        this.patient = patient;
+        this.doctorId = doctorId;
+        this.patientId = patientId;
     }
     
     public long getId() {
@@ -43,20 +43,20 @@ public class Appointment {
         this.time = time;
     }
     
-    public void setDoctor(Doctor newDoctor) {
-        this.doctor = newDoctor;
+    public void setDoctor(long newDoctorId) {
+        this.doctorId = newDoctorId;
     }
     
-    public void setPatient(Patient newPatient) {
-        this.patient = newPatient;
+    public void setPatient(long newPatientId) {
+        this.patientId = newPatientId;
     }
     
-    public Doctor getDoctor() {
-        return this.doctor;
+    public long getDoctor() {
+        return this.doctorId;
     }
     
-    public Patient getPatient() {
-        return this.patient;
+    public long getPatient() {
+        return this.patientId;
     }
     
     public String getDate() {

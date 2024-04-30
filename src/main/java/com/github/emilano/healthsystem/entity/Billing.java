@@ -67,48 +67,48 @@ public class Billing {
 
 
 class Invoice {
-    private Doctor doctor;
-    private Patient patient;
-    private MedicalRecord record;
-    private Prescription prescription;
+    private long doctorId;
+    private long patientId;
+    private long recordId;
+    private long prescriptionId;
     
-    public Invoice(@JsonProperty("doctor") Doctor doctor, @JsonProperty("patient") Patient patient, @JsonProperty("record") MedicalRecord record, @JsonProperty("prescription") Prescription prescription) {
-        this.doctor = doctor;
-        this.patient = patient;
-        this.record = record;
-        this.prescription = prescription;
+    public Invoice(@JsonProperty("doctorId") long doctorId, @JsonProperty("patientId") long patientId, @JsonProperty("recordId") long recordId, @JsonProperty("prescriptionId") long prescriptionId) {
+        this.doctorId = doctorId;
+        this.patientId = patientId;
+        this.recordId = recordId;
+        this.prescriptionId = prescriptionId;
     }
     
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
+    public void setDoctor(long doctorId) {
+        this.doctorId = doctorId;
     }
     
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setPatient(long patientId) {
+        this.patientId = patientId;
     }
     
-    public void setPatientRecord(MedicalRecord record) {
-        this.record = record;
+    public void setPatientRecord(long recordId) {
+        this.recordId = recordId;
     }
     
-    public void setPrescription(Prescription prescription) {
-        this.prescription = prescription;
+    public void setPrescription(long prescriptionId) {
+        this.prescriptionId = prescriptionId;
     }
     
-    public Doctor getDoctor() {
-        return this.doctor;
+    public long getDoctor() {
+        return this.doctorId;
     }
     
-    public Patient getPatient() {
-        return this.patient;
+    public long getPatient() {
+        return this.patientId;
     }
     
-    public MedicalRecord getPatientRecord() {
-        return this.record;
+    public long getPatientRecord() {
+        return this.recordId;
     }
     
-    public Prescription getPrescription() {
-        return this.prescription;
+    public long getPrescription() {
+        return this.prescriptionId;
     }
 }
 
