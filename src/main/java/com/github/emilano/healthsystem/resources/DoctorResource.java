@@ -6,6 +6,7 @@ package com.github.emilano.healthsystem.resources;
 
 import com.github.emilano.healthsystem.dao.DoctorDAO;
 import com.github.emilano.healthsystem.entity.Doctor;
+import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
 import java.util.Collection;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -33,8 +34,10 @@ public class DoctorResource {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Doctor getDoctor(@PathParam("id") long id) {
-        return DoctorDAO.getDoctor(id);
+    public Doctor getDoctor(@PathParam("id") long id) throws ResourceNotFoundException {
+        Doctor doctor = DoctorDAO.getDoctor(id);
+        if (doctor == null) throw new ResourceNotFoundException();
+        return doctor;
     }
     
     @POST
@@ -46,15 +49,20 @@ public class DoctorResource {
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void putDoctor(@PathParam("id") long id, Doctor updated) {
+    public void putDoctor(@PathParam("id") long id, Doctor updated) throws ResourceNotFoundException {
         Doctor doctor = DoctorDAO.getDoctor(id);
+        if (doctor == null) throw new ResourceNotFoundException();
+        
         updated.setId(id);
         DoctorDAO.updateDoctor(updated);
     }
     
     @DELETE
     @Path("/{id}")
-    public void deleteDoctor(@PathParam("id") long id) {
-        DoctorDAO.deleteDoctor(id);
+    public void deleteDoctor(@PathParam("id") long id) throws ResourceNotFoundException {
+        Doctor doctor = DoctorDAO.getDoctor(id);
+        if (doctor == null) throw new ResourceNotFoundException();
+        
+        DoctorDAO.deleteDoctor(doctor, id);
     }
 }

@@ -6,6 +6,7 @@ package com.github.emilano.healthsystem.resources;
 
 import com.github.emilano.healthsystem.dao.BillingDAO;
 import com.github.emilano.healthsystem.entity.Billing;
+import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
 import java.util.Collection;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -32,8 +33,10 @@ public class BillingResource {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Billing getBilling(@PathParam("id") long id) {
-        return BillingDAO.getBilling(id);
+    public Billing getBilling(@PathParam("id") long id) throws ResourceNotFoundException {
+        Billing bill = BillingDAO.getBilling(id);
+        if (bill == null) throw new ResourceNotFoundException();
+        return bill;
     }
     
     @POST
@@ -45,15 +48,20 @@ public class BillingResource {
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void putBilling(@PathParam("id") long id, Billing updated) {
+    public void putBilling(@PathParam("id") long id, Billing updated) throws ResourceNotFoundException {
         Billing billing = BillingDAO.getBilling(id);
+        if (billing == null) throw new ResourceNotFoundException();
+        
         updated.setId(id);
         BillingDAO.updateBilling(updated);
     }
     
     @DELETE
     @Path("/{id}")
-    public void deleteBilling(@PathParam("id") long id) {
-        BillingDAO.deleteBilling(id);
+    public void deleteBilling(@PathParam("id") long id) throws ResourceNotFoundException {
+        Billing bill = BillingDAO.getBilling(id);
+        if (bill == null) throw new ResourceNotFoundException();
+        
+        BillingDAO.deleteBilling(bill, id);
     }
 }

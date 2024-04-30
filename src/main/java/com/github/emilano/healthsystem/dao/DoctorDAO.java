@@ -36,7 +36,7 @@ public class DoctorDAO {
     }
     
     
-    public static void deleteDoctor(long id) {
-        doctors.remove(id);
+    public static void deleteDoctor(Doctor doctor, long id) {
+        doctors.remove(doctor, id);
     }
 }

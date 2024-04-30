@@ -35,7 +35,7 @@ public class BillingDAO {
         billings.replace(bill.getId(), bill);
     }
     
-    public static void deleteBilling(long id) {
-        billings.remove(id);
+    public static void deleteBilling(Billing bill, long id) {
+        billings.remove(bill, id);
     }
 }

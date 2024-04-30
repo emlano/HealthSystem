@@ -36,7 +36,7 @@ public class MedicalRecordDAO {
         records.replace(record.getId(), record);
     }
     
-    public static void deleteMedicalRecord(long id) {
-        records.remove(id);
+    public static void deleteMedicalRecord(MedicalRecord record, long id) {
+        records.remove(record, id);
     }
 }

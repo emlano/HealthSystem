@@ -35,7 +35,7 @@ public class PrescriptionDAO {
         prescriptions.replace(prescription.getId(), prescription);
     }
     
-    public static void deletePrescription(long id) {
-        prescriptions.remove(id);
+    public static void deletePrescription(Prescription presc, long id) {
+        prescriptions.remove(presc, id);
     }
 }

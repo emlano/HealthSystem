@@ -35,8 +35,7 @@ public class PatientDAO {
         patients.replace(patient.getId(), patient);
     }
     
-    
-    public static void deletePatient(long id) {
-        patients.remove(id);
+    public static void deletePatient(Patient patient, long id) {
+        patients.remove(patient, id);
     }
 }

@@ -6,6 +6,7 @@ package com.github.emilano.healthsystem.resources;
 
 import com.github.emilano.healthsystem.dao.PersonDAO;
 import com.github.emilano.healthsystem.entity.Person;
+import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
 import java.util.Collection;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -32,8 +33,10 @@ public class PersonResource {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Person getPerson(@PathParam("id") int id) {
-        return PersonDAO.getPerson(id);
+    public Person getPerson(@PathParam("id") int id) throws ResourceNotFoundException {
+        Person person = PersonDAO.getPerson(id);
+        if (person == null) throw new ResourceNotFoundException();
+        return person;
     }
     
     @POST
@@ -45,15 +48,19 @@ public class PersonResource {
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void putPerson(@PathParam("id") int id, Person updated) {
+    public void putPerson(@PathParam("id") int id, Person updated) throws ResourceNotFoundException {
         Person person = PersonDAO.getPerson(id);
+        if (person == null) throw new ResourceNotFoundException();
+        
         updated.setId(person.getId());
         PersonDAO.updatePerson(updated);
     }
     
     @DELETE
     @Path("/{id}")
-    public void deletePerson(@PathParam("id") int id) {
-        PersonDAO.deletePerson(id);
+    public void deletePerson(@PathParam("id") int id) throws ResourceNotFoundException {
+        Person person = PersonDAO.getPerson(id);
+        if (person == null) throw new ResourceNotFoundException();
+        PersonDAO.deletePerson(person, id);
     }
 }

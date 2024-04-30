@@ -35,7 +35,7 @@ public class PersonDAO {
         persons.replace(person.getId(), person);
     }
     
-    public static void deletePerson(long id) {
-        persons.remove(id);
+    public static void deletePerson(Person person, long id) {
+        persons.remove(person, id);
     }
 }

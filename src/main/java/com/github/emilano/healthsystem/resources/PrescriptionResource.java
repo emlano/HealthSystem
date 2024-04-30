@@ -6,6 +6,7 @@ package com.github.emilano.healthsystem.resources;
 
 import com.github.emilano.healthsystem.dao.PrescriptionDAO;
 import com.github.emilano.healthsystem.entity.Prescription;
+import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
 import java.util.Collection;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -32,8 +33,10 @@ public class PrescriptionResource {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Prescription getPrescription(@PathParam("id") long id) {
-        return PrescriptionDAO.getPrescription(id);
+    public Prescription getPrescription(@PathParam("id") long id) throws ResourceNotFoundException {
+        Prescription presc = PrescriptionDAO.getPrescription(id);
+        if (presc == null) throw new ResourceNotFoundException();
+        return presc;
     }
     
     @POST
@@ -45,15 +48,20 @@ public class PrescriptionResource {
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void putPrescription(@PathParam("id") long id, Prescription updated) {
+    public void putPrescription(@PathParam("id") long id, Prescription updated) throws ResourceNotFoundException {
         Prescription prescription = PrescriptionDAO.getPrescription(id);
+        if (prescription == null) throw new ResourceNotFoundException();
+        
         updated.setId(id);
         PrescriptionDAO.updatePrescription(updated);
     }
     
     @DELETE
     @Path("/{id}")
-    public void deletePrescription(@PathParam("id") long id) {
-        PrescriptionDAO.deletePrescription(id);
+    public void deletePrescription(@PathParam("id") long id) throws ResourceNotFoundException {
+        Prescription presc = PrescriptionDAO.getPrescription(id);
+        if (presc == null) throw new ResourceNotFoundException();
+        
+        PrescriptionDAO.deletePrescription(presc, id);
     }
 }

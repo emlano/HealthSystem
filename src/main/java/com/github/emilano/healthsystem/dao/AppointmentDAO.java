@@ -35,7 +35,7 @@ public class AppointmentDAO {
         appointments.replace(appt.getId(), appt);
     }
     
-    public static void deleteAppointment(Object obj, long id) {
+    public static void deleteAppointment(Appointment obj, long id) {
         appointments.remove(obj, id);
     }
 }
