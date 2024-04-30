@@ -26,7 +26,7 @@ public class DoctorDAO {
     }
     
     public static void addDoctor(Doctor doctor) {
-        long id = new SharedUtils<Doctor>().getNextId(doctors);
+        long id = SharedUtils.getNextId(doctors);
         doctor.setId(id);
         doctors.put(id, doctor);
     }

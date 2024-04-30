@@ -26,7 +26,7 @@ public class PersonDAO {
     }
     
     public static void addPerson(Person person) {
-        long id = new SharedUtils<Person>().getNextId(persons);
+        long id = SharedUtils.getNextId(persons);
         person.setId(id);
         persons.put(id, person);
     }

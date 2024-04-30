@@ -10,14 +10,8 @@ import java.util.Map;
  *
  * @author emilano
  */
-public class SharedUtils<T> {
-    public long getNextId(Map<Long, T> map) {
-        for (long i = 0; i < map.size(); i++) {
-            T obj = map.getOrDefault(i, null);
-            
-            if (obj == null) return i;
-        }
-        
+public class SharedUtils {
+    public static long getNextId(Map map) {
         return map.size();
     }
 }

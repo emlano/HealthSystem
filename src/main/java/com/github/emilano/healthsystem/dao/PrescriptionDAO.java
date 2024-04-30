@@ -26,7 +26,7 @@ public class PrescriptionDAO {
     }
     
     public static void addPrescription(Prescription prescription) {
-        long id = new SharedUtils<Prescription>().getNextId(prescriptions);
+        long id = SharedUtils.getNextId(prescriptions);
         prescription.setId(id);
         prescriptions.put(id, prescription);
     }

@@ -5,7 +5,11 @@
 package com.github.emilano.healthsystem.resources;
 
 import com.github.emilano.healthsystem.dao.AppointmentDAO;
+import com.github.emilano.healthsystem.dao.DoctorDAO;
+import com.github.emilano.healthsystem.dao.PatientDAO;
 import com.github.emilano.healthsystem.entity.Appointment;
+import com.github.emilano.healthsystem.entity.Doctor;
+import com.github.emilano.healthsystem.entity.Patient;
 import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
 import java.util.Collection;
 import javax.ws.rs.Consumes;
@@ -37,7 +41,6 @@ public class AppointmentResource {
     public Appointment getAppointment(@PathParam("id") long id) throws ResourceNotFoundException {
         Appointment appt = AppointmentDAO.getAppointment(id);
         if (appt == null) throw new ResourceNotFoundException();
-        
         return appt;
     }
     
