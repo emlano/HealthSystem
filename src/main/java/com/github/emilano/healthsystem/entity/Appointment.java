@@ -4,6 +4,7 @@
  */
 package com.github.emilano.healthsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.emilano.healthsystem.dao.DoctorDAO;
 import com.github.emilano.healthsystem.dao.PatientDAO;
@@ -16,6 +17,7 @@ import java.time.format.DateTimeFormatter;
  *
  * @author emilano
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Appointment {
     private long id;
     private String date;

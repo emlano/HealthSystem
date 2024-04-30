@@ -4,6 +4,7 @@
  */
 package com.github.emilano.healthsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.emilano.healthsystem.dao.MedicalRecordDAO;
 import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
@@ -12,6 +13,7 @@ import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
  *
  * @author emilano
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Patient extends Person {
     private String status;
     private MedicalRecord record;
@@ -34,7 +36,7 @@ public class Patient extends Person {
         return this.status;
     }
     
-    public MedicalRecord getMedicalRecordId() {
+    public MedicalRecord getMedicalRecord() {
         return this.record;
     }
 }

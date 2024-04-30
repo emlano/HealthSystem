@@ -8,8 +8,8 @@ package com.github.emilano.healthsystem.exception;
  *
  * @author emilano
  */
-public class ResourceNotFoundException extends Exception {
-    public ResourceNotFoundException(String resource, long id) {
-        super("No such resource found of " + resource + " with id " + id);
+public class ImproperOrBadRequestException extends Exception {
+    public ImproperOrBadRequestException(String resource) {
+        super("Cannot parse request body of resource " + resource + "!");
     }
 }

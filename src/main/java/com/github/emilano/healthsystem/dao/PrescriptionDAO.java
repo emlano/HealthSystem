@@ -6,6 +6,7 @@ package com.github.emilano.healthsystem.dao;
 
 import com.github.emilano.healthsystem.SharedUtils;
 import com.github.emilano.healthsystem.entity.*;
+import com.github.emilano.healthsystem.exception.ImproperOrBadRequestException;
 import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
 import java.util.Collection;
 import java.util.HashMap;
@@ -19,29 +20,40 @@ public class PrescriptionDAO {
     private static Map<Long, Prescription> prescriptions = new HashMap<>();
     
     public static Collection<Prescription> getAllPrescriptions() {
-        return prescriptions.values().stream().toList();
+        return prescriptions.values();
     }
     
     public static Prescription getPrescription(long id) throws ResourceNotFoundException {
-        Prescription prescription = prescriptions.get(id);
-        if (prescription == null) throw new ResourceNotFoundException();
-        return prescription;
+        return checkPrescriptionKey(id);
     }
     
-    public static void addPrescription(Prescription prescription) {
+    public static void addPrescription(Prescription prescription) throws ImproperOrBadRequestException {
         long id = SharedUtils.getNextId(prescriptions);
+        checkPrescriptionObject(prescription);
         prescription.setId(id);
         prescriptions.put(id, prescription);
     }
     
-    public static void updatePrescription(long id, Prescription prescription) throws ResourceNotFoundException {
-        if (prescriptions.get(id) == null) throw new ResourceNotFoundException();
+    public static void updatePrescription(long id, Prescription prescription) throws Exception {
+        checkPrescriptionKey(id);
+        checkPrescriptionObject(prescription);
         prescription.setId(id);
         prescriptions.replace(prescription.getId(), prescription);
     }
     
     public static void deletePrescription(long id) throws ResourceNotFoundException {
-        if (prescriptions.get(id) == null) throw new ResourceNotFoundException();
+        checkPrescriptionKey(id);
         prescriptions.remove(id);
+    }
+    
+    private static Prescription checkPrescriptionKey(long id) throws ResourceNotFoundException {
+        Prescription prescription = prescriptions.get(id);
+        if (prescription == null) throw new ResourceNotFoundException("Prescription", id);
+        return prescription;
+    }
+    
+    private static void checkPrescriptionObject(Prescription obj) throws ImproperOrBadRequestException {
+        if (obj == null) throw new ImproperOrBadRequestException("Prescription");
+        if (obj.getMedications() == null) throw new ImproperOrBadRequestException("Medications");
     }
 }

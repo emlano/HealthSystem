@@ -6,6 +6,7 @@ package com.github.emilano.healthsystem.dao;
 
 import com.github.emilano.healthsystem.SharedUtils;
 import com.github.emilano.healthsystem.entity.*;
+import com.github.emilano.healthsystem.exception.ImproperOrBadRequestException;
 import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
 import java.util.Collection;
 import java.util.HashMap;
@@ -23,27 +24,41 @@ public class DoctorDAO {
     }
     
     public static Doctor getDoctor(long id) throws ResourceNotFoundException {
-        Doctor doctor = doctors.get(id);
-        if (doctor == null) throw new ResourceNotFoundException();
-        
-        return doctor;
+        return checkDoctorKey(id);
     }
     
-    public static void addDoctor(Doctor doctor) {
+    public static void addDoctor(Doctor doctor) throws ImproperOrBadRequestException {
         long id = SharedUtils.getNextId(doctors);
+        checkDoctorObject(doctor);
         doctor.setId(id);
         doctors.put(id, doctor);
     }
     
-    public static void updateDoctor(long id, Doctor doctor) throws ResourceNotFoundException {
-        if (doctors.get(id) == null) throw new ResourceNotFoundException();
+    public static void updateDoctor(long id, Doctor doctor) throws Exception {
+        checkDoctorKey(id);
+        checkDoctorObject(doctor);
         doctor.setId(id);
         doctors.replace(id, doctor);
     }
     
     
     public static void deleteDoctor(long id) throws ResourceNotFoundException {
-        if (doctors.get(id) == null) throw new ResourceNotFoundException();
+        checkDoctorKey(id);
         doctors.remove(id);
+    }
+    
+    private static Doctor checkDoctorKey(long id) throws ResourceNotFoundException {
+        Doctor doc = doctors.get(id);
+        if (doc == null) throw new ResourceNotFoundException("Doctor", id);
+        return doc;
+    }
+    
+    private static void checkDoctorObject(Doctor obj) throws ImproperOrBadRequestException {
+        if (obj == null) throw new ImproperOrBadRequestException("Doctor");
+        if (obj.getName() == null) throw new ImproperOrBadRequestException("Name");
+        if (obj.getContact() == null) throw new ImproperOrBadRequestException("Contact");
+        if (obj.getAddress() == null) throw new ImproperOrBadRequestException("Address");
+        if (obj.getOfficeContact() == null) throw new ImproperOrBadRequestException("OfficeContact");
+        if (obj.getSpecialization() == null) throw new ImproperOrBadRequestException("Specialization");
     }
 }

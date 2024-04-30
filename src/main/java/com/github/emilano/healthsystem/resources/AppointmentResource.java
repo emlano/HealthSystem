@@ -6,6 +6,7 @@ package com.github.emilano.healthsystem.resources;
 
 import com.github.emilano.healthsystem.dao.AppointmentDAO;
 import com.github.emilano.healthsystem.entity.Appointment;
+import com.github.emilano.healthsystem.exception.ImproperOrBadRequestException;
 import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
 import java.util.Collection;
 import javax.ws.rs.Consumes;
@@ -41,7 +42,7 @@ public class AppointmentResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String postAppointment(Appointment appointment) {
+    public String postAppointment(Appointment appointment) throws ImproperOrBadRequestException {
         AppointmentDAO.addAppointment(appointment);
         return "Status: OK";
     }
@@ -50,14 +51,16 @@ public class AppointmentResource {
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String putAppointment(@PathParam("id") long id, Appointment updated) throws ResourceNotFoundException {
+    public String putAppointment(@PathParam("id") long id, Appointment updated) throws Exception {
         AppointmentDAO.updateAppointment(id,updated);
         return "Status: OK";
     }
     
     @DELETE
     @Path("/{id}")
-    public void deleteAppointment(@PathParam("id") long id) throws ResourceNotFoundException {
+    @Produces(MediaType.TEXT_PLAIN)
+    public String deleteAppointment(@PathParam("id") long id) throws ResourceNotFoundException {
         AppointmentDAO.deleteAppointment(id);
+        return "Status: OK";
     }
 }

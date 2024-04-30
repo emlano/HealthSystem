@@ -6,6 +6,7 @@ package com.github.emilano.healthsystem.dao;
 
 import com.github.emilano.healthsystem.SharedUtils;
 import com.github.emilano.healthsystem.entity.*;
+import com.github.emilano.healthsystem.exception.ImproperOrBadRequestException;
 import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
 import java.util.Collection;
 import java.util.HashMap;
@@ -23,25 +24,37 @@ public class MedicalRecordDAO {
     }
     
     public static MedicalRecord getMedicalRecord(long id) throws ResourceNotFoundException {
-        MedicalRecord record = records.get(id);
-        if (record == null) throw new ResourceNotFoundException();
-        return record;
+        return checkMedicalRecordKey(id);
     }
     
-    public static void addMedicalRecord(MedicalRecord record) {
+    public static void addMedicalRecord(MedicalRecord record) throws ImproperOrBadRequestException {
         long id = SharedUtils.getNextId(records);
+        checkMedicalRecordObject(record);
         record.setId(id);
         records.put(id, record);
     }
     
-    public static void updateMedicaRecord(long id, MedicalRecord record) throws ResourceNotFoundException {
-        if (records.get(id) == null) throw new ResourceNotFoundException();
+    public static void updateMedicaRecord(long id, MedicalRecord record) throws Exception {
+        checkMedicalRecordKey(id);
+        checkMedicalRecordObject(record);
         record.setId(id);
         records.replace(id, record);
     }
     
     public static void deleteMedicalRecord(long id) throws ResourceNotFoundException {
-        if (records.get(id) == null) throw new ResourceNotFoundException();
+        checkMedicalRecordKey(id);
         records.remove(id);
     }
+    
+    private static MedicalRecord checkMedicalRecordKey(long id) throws ResourceNotFoundException {
+        MedicalRecord record = records.get(id);
+        if (record == null) throw new ResourceNotFoundException("MedicalRecord", id);
+        return record;
+    }
+    
+    private static void checkMedicalRecordObject(MedicalRecord record) throws ImproperOrBadRequestException {
+        if (record == null) throw new ImproperOrBadRequestException("MedicaRecord");
+        if (record.getDiagnoses() == null) throw new ImproperOrBadRequestException("Diagnoses");
+        if (record.getTreatments() == null) throw new ImproperOrBadRequestException("Treatments");
+    } 
 }

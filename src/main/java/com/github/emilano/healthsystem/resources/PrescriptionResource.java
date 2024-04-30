@@ -6,6 +6,7 @@ package com.github.emilano.healthsystem.resources;
 
 import com.github.emilano.healthsystem.dao.PrescriptionDAO;
 import com.github.emilano.healthsystem.entity.Prescription;
+import com.github.emilano.healthsystem.exception.ImproperOrBadRequestException;
 import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
 import java.util.Collection;
 import javax.ws.rs.Consumes;
@@ -39,20 +40,26 @@ public class PrescriptionResource {
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void postPrescription(Prescription prescription) {
+    @Produces(MediaType.TEXT_PLAIN)
+    public String postPrescription(Prescription prescription) throws ImproperOrBadRequestException {
         PrescriptionDAO.addPrescription(prescription);
+        return "Status: OK";
     }
     
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void putPrescription(@PathParam("id") long id, Prescription updated) throws ResourceNotFoundException {
+    @Produces(MediaType.TEXT_PLAIN)
+    public String putPrescription(@PathParam("id") long id, Prescription updated) throws Exception {
         PrescriptionDAO.updatePrescription(id, updated);
+        return "Status: OK";
     }
     
     @DELETE
     @Path("/{id}")
-    public void deletePrescription(@PathParam("id") long id) throws ResourceNotFoundException {
+    @Produces(MediaType.TEXT_PLAIN)
+    public String deletePrescription(@PathParam("id") long id) throws ResourceNotFoundException {
         PrescriptionDAO.deletePrescription(id);
+        return "Status: OK";
     }
 }

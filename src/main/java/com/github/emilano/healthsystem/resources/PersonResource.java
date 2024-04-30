@@ -6,6 +6,7 @@ package com.github.emilano.healthsystem.resources;
 
 import com.github.emilano.healthsystem.dao.PersonDAO;
 import com.github.emilano.healthsystem.entity.Person;
+import com.github.emilano.healthsystem.exception.ImproperOrBadRequestException;
 import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
 import java.util.Collection;
 import javax.ws.rs.Consumes;
@@ -39,20 +40,26 @@ public class PersonResource {
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void postPerson(Person person) {
+    @Produces(MediaType.TEXT_PLAIN)
+    public String postPerson(Person person) throws ImproperOrBadRequestException {
         PersonDAO.addPerson(person);
+        return "Status: OK";
     }
     
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void putPerson(@PathParam("id") int id, Person updated) throws ResourceNotFoundException {
+    @Produces(MediaType.TEXT_PLAIN)
+    public String putPerson(@PathParam("id") int id, Person updated) throws Exception {
         PersonDAO.updatePerson(id, updated);
+        return "Status: OK";
     }
     
     @DELETE
     @Path("/{id}")
-    public void deletePerson(@PathParam("id") int id) throws ResourceNotFoundException {
+    @Produces(MediaType.TEXT_PLAIN)
+    public String deletePerson(@PathParam("id") int id) throws ResourceNotFoundException {
         PersonDAO.deletePerson(id);
+        return "Status: OK";
     }
 }

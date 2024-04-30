@@ -6,6 +6,7 @@ package com.github.emilano.healthsystem.dao;
 
 import com.github.emilano.healthsystem.SharedUtils;
 import com.github.emilano.healthsystem.entity.*;
+import com.github.emilano.healthsystem.exception.ImproperOrBadRequestException;
 import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
 import java.util.Collection;
 import java.util.HashMap;
@@ -23,26 +24,37 @@ public class BillingDAO {
     }
     
     public static Billing getBilling(long id) throws ResourceNotFoundException {
-        Billing bill = billings.get(id);
-        if (bill == null) throw new ResourceNotFoundException();
-        
-        return bill;
+        return checkBillingKey(id);
     }
     
-    public static void addBilling(Billing bill) {
+    public static void addBilling(Billing bill) throws ImproperOrBadRequestException {
         long id = SharedUtils.getNextId(billings);
+        checkBillingObject(bill);
         bill.setId(id);
         billings.put(id, bill);
     }
     
-    public static void updateBilling(long id, Billing bill) throws ResourceNotFoundException {
-        if (billings.get(id) == null) throw new ResourceNotFoundException();
+    public static void updateBilling(long id, Billing bill) throws Exception {
+        checkBillingKey(id);
+        checkBillingObject(bill);
         bill.setId(id);
         billings.replace(id, bill);
     }
     
     public static void deleteBilling(long id) throws ResourceNotFoundException {
-        if (billings.get(id) == null) throw new ResourceNotFoundException();
+        checkBillingKey(id);
         billings.remove(id);
+    }
+    
+    private static Billing checkBillingKey(long id) throws ResourceNotFoundException {
+        Billing bill = billings.get(id);
+        if (bill == null) throw new ResourceNotFoundException("Billing", id);
+        return bill;
+    }
+    
+    private static void checkBillingObject(Billing obj) throws ImproperOrBadRequestException {
+        if (obj == null) throw new ImproperOrBadRequestException("Billing");
+        if (obj.getDueAmount() == 0) throw new ImproperOrBadRequestException("DueAmount");
+        if (obj.getInvoice() == null) throw new ImproperOrBadRequestException("Invoice");
     }
 }

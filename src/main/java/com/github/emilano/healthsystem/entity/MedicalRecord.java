@@ -4,6 +4,7 @@
  */
 package com.github.emilano.healthsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.emilano.healthsystem.dao.DoctorDAO;
 import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
@@ -16,6 +17,7 @@ import java.util.List;
  *
  * @author emilano
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class MedicalRecord {
     private long id;
     private List<Diagnosis> diagnoses;

@@ -4,12 +4,14 @@
  */
 package com.github.emilano.healthsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  *
  * @author emilano
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Doctor extends Person {
     private String specialization;
     private String officeContact;

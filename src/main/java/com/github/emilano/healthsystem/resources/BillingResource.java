@@ -6,6 +6,7 @@ package com.github.emilano.healthsystem.resources;
 
 import com.github.emilano.healthsystem.dao.BillingDAO;
 import com.github.emilano.healthsystem.entity.Billing;
+import com.github.emilano.healthsystem.exception.ImproperOrBadRequestException;
 import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
 import java.util.Collection;
 import javax.ws.rs.Consumes;
@@ -39,20 +40,26 @@ public class BillingResource {
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void postBilling(Billing billing) {
+    @Produces(MediaType.TEXT_PLAIN)
+    public String postBilling(Billing billing) throws ImproperOrBadRequestException {
         BillingDAO.addBilling(billing);
+        return "Status: OK";
     }
     
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void putBilling(@PathParam("id") long id, Billing updated) throws ResourceNotFoundException {
+    @Produces(MediaType.TEXT_PLAIN)
+    public String putBilling(@PathParam("id") long id, Billing updated) throws Exception {
         BillingDAO.updateBilling(id, updated);
+        return "Status: OK";
     }
     
     @DELETE
     @Path("/{id}")
-    public void deleteBilling(@PathParam("id") long id) throws ResourceNotFoundException {
+    @Produces(MediaType.TEXT_PLAIN)
+    public String deleteBilling(@PathParam("id") long id) throws ResourceNotFoundException {
         BillingDAO.deleteBilling(id);
+        return "Status: OK";
     }
 }

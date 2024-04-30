@@ -8,6 +8,7 @@ import com.github.emilano.healthsystem.dao.AppointmentDAO;
 import com.github.emilano.healthsystem.dao.DoctorDAO;
 import com.github.emilano.healthsystem.entity.Appointment;
 import com.github.emilano.healthsystem.entity.Doctor;
+import com.github.emilano.healthsystem.exception.ImproperOrBadRequestException;
 import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -44,11 +45,12 @@ public class DoctorResource {
     
     @GET
     @Path("/{id}/appointment")
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Appointment> getScheduledAppointments(@PathParam("id")long id) {
         ArrayList<Appointment> appts = new ArrayList<>();
         
         for (Appointment i : AppointmentDAO.getAllAppointments()) {
-            if (i.getDoctor().getId() == id) appts.add(i);
+            if (i.getDoctor() != null && i.getDoctor().getId() == id) appts.add(i);
         }
         
         return appts;
@@ -56,20 +58,26 @@ public class DoctorResource {
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void postDoctor(@PathParam("id") long id, Doctor doctor) {
+    @Produces(MediaType.TEXT_PLAIN)
+    public String postDoctor(@PathParam("id") long id, Doctor doctor) throws ImproperOrBadRequestException {
         DoctorDAO.addDoctor(doctor);
+        return "Status: OK";
     }
     
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void putDoctor(@PathParam("id") long id, Doctor updated) throws ResourceNotFoundException {
+    @Produces(MediaType.TEXT_PLAIN)
+    public String putDoctor(@PathParam("id") long id, Doctor updated) throws Exception {
         DoctorDAO.updateDoctor(id, updated);
+        return "Status: OK";
     }
     
     @DELETE
     @Path("/{id}")
-    public void deleteDoctor(@PathParam("id") long id) throws ResourceNotFoundException {
+    @Produces(MediaType.TEXT_PLAIN)
+    public String deleteDoctor(@PathParam("id") long id) throws ResourceNotFoundException {
         DoctorDAO.deleteDoctor(id);
+        return "Status: OK";
     }
 }
