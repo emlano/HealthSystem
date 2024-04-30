@@ -4,10 +4,14 @@
  */
 package com.github.emilano.healthsystem.resources;
 
+import com.github.emilano.healthsystem.dao.AppointmentDAO;
 import com.github.emilano.healthsystem.dao.DoctorDAO;
+import com.github.emilano.healthsystem.entity.Appointment;
 import com.github.emilano.healthsystem.entity.Doctor;
 import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -35,9 +39,19 @@ public class DoctorResource {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Doctor getDoctor(@PathParam("id") long id) throws ResourceNotFoundException {
-        Doctor doctor = DoctorDAO.getDoctor(id);
-        if (doctor == null) throw new ResourceNotFoundException();
-        return doctor;
+        return DoctorDAO.getDoctor(id);
+    }
+    
+    @GET
+    @Path("/{id}/appointment")
+    public List<Appointment> getScheduledAppointments(@PathParam("id")long id) {
+        ArrayList<Appointment> appts = new ArrayList<>();
+        
+        for (Appointment i : AppointmentDAO.getAllAppointments()) {
+            if (i.getDoctor().getId() == id) appts.add(i);
+        }
+        
+        return appts;
     }
     
     @POST
@@ -50,19 +64,12 @@ public class DoctorResource {
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     public void putDoctor(@PathParam("id") long id, Doctor updated) throws ResourceNotFoundException {
-        Doctor doctor = DoctorDAO.getDoctor(id);
-        if (doctor == null) throw new ResourceNotFoundException();
-        
-        updated.setId(id);
-        DoctorDAO.updateDoctor(updated);
+        DoctorDAO.updateDoctor(id, updated);
     }
     
     @DELETE
     @Path("/{id}")
     public void deleteDoctor(@PathParam("id") long id) throws ResourceNotFoundException {
-        Doctor doctor = DoctorDAO.getDoctor(id);
-        if (doctor == null) throw new ResourceNotFoundException();
-        
-        DoctorDAO.deleteDoctor(doctor, id);
+        DoctorDAO.deleteDoctor(id);
     }
 }

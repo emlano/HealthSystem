@@ -5,6 +5,8 @@
 package com.github.emilano.healthsystem.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.emilano.healthsystem.dao.DoctorDAO;
+import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -67,22 +69,22 @@ public class MedicalRecord {
 
 
 class Diagnosis {
-    private long doctorId;
+    private Doctor doctor;
     private String diagnosis;
     private String dateOfDiagnosis;
     
-    public Diagnosis(@JsonProperty("doctorId") long doctorId, @JsonProperty("diagnosis") String diagnosis) {
-        this.doctorId = doctorId;
+    public Diagnosis(@JsonProperty("doctorId") long doctorId, @JsonProperty("diagnosis") String diagnosis) throws ResourceNotFoundException {
+        this.doctor = DoctorDAO.getDoctor(doctorId);
         this.diagnosis = diagnosis;
         this.dateOfDiagnosis = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
     }
     
-    public void setDoctorId(long doctorId) {
-        this.doctorId = doctorId;
+    public void setDoctor(long doctorId) throws ResourceNotFoundException {
+        this.doctor = DoctorDAO.getDoctor(doctorId);
     }
     
-    public long getDoctorId() {
-        return this.doctorId;
+    public Doctor getDoctor() {
+        return this.doctor;
     }
     
     public void setDiagnosis(String diagnosis) {
@@ -104,22 +106,22 @@ class Diagnosis {
 
 
 class Treatment {
-    private long doctorId;
+    private Doctor doctor;
     private String procedure;
     private String dateOfTreatment;
     
-    public Treatment(@JsonProperty("doctorId") long doctorId, @JsonProperty("procedure") String procedure) {
-        this.doctorId = doctorId;
+    public Treatment(@JsonProperty("doctorId") long doctorId, @JsonProperty("procedure") String procedure) throws ResourceNotFoundException {
+        this.doctor = DoctorDAO.getDoctor(doctorId);
         this.procedure = procedure;
         this.dateOfTreatment = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
     }
     
-    public void setDoctorId(long doctor) {
-        this.doctorId = doctorId;
+    public void setDoctor(long doctorId) throws ResourceNotFoundException {
+        this.doctor = DoctorDAO.getDoctor(doctorId);
     }
     
-    public long getDoctorId() {
-        return this.doctorId;
+    public Doctor getDoctor() {
+        return this.doctor;
     }
     
     public void setTreatment(String treatment) {

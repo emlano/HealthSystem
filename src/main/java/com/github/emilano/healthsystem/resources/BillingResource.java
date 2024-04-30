@@ -34,9 +34,7 @@ public class BillingResource {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Billing getBilling(@PathParam("id") long id) throws ResourceNotFoundException {
-        Billing bill = BillingDAO.getBilling(id);
-        if (bill == null) throw new ResourceNotFoundException();
-        return bill;
+        return BillingDAO.getBilling(id);
     }
     
     @POST
@@ -49,19 +47,12 @@ public class BillingResource {
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     public void putBilling(@PathParam("id") long id, Billing updated) throws ResourceNotFoundException {
-        Billing billing = BillingDAO.getBilling(id);
-        if (billing == null) throw new ResourceNotFoundException();
-        
-        updated.setId(id);
-        BillingDAO.updateBilling(updated);
+        BillingDAO.updateBilling(id, updated);
     }
     
     @DELETE
     @Path("/{id}")
     public void deleteBilling(@PathParam("id") long id) throws ResourceNotFoundException {
-        Billing bill = BillingDAO.getBilling(id);
-        if (bill == null) throw new ResourceNotFoundException();
-        
-        BillingDAO.deleteBilling(bill, id);
+        BillingDAO.deleteBilling(id);
     }
 }

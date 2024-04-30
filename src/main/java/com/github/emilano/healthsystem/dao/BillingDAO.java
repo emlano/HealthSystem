@@ -6,6 +6,7 @@ package com.github.emilano.healthsystem.dao;
 
 import com.github.emilano.healthsystem.SharedUtils;
 import com.github.emilano.healthsystem.entity.*;
+import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,8 +22,11 @@ public class BillingDAO {
         return billings.values();
     }
     
-    public static Billing getBilling(long id) {
-        return billings.get(id);
+    public static Billing getBilling(long id) throws ResourceNotFoundException {
+        Billing bill = billings.get(id);
+        if (bill == null) throw new ResourceNotFoundException();
+        
+        return bill;
     }
     
     public static void addBilling(Billing bill) {
@@ -31,11 +35,14 @@ public class BillingDAO {
         billings.put(id, bill);
     }
     
-    public static void updateBilling(Billing bill) {
-        billings.replace(bill.getId(), bill);
+    public static void updateBilling(long id, Billing bill) throws ResourceNotFoundException {
+        if (billings.get(id) == null) throw new ResourceNotFoundException();
+        bill.setId(id);
+        billings.replace(id, bill);
     }
     
-    public static void deleteBilling(Billing bill, long id) {
-        billings.remove(bill, id);
+    public static void deleteBilling(long id) throws ResourceNotFoundException {
+        if (billings.get(id) == null) throw new ResourceNotFoundException();
+        billings.remove(id);
     }
 }

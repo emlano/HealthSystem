@@ -34,11 +34,7 @@ public class PatientResource {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Patient getPatient(@PathParam("id") long id) throws ResourceNotFoundException {
-        Patient patient = PatientDAO.getPatient(id);
-        if (patient == null) throw new ResourceNotFoundException();
-        
-        return patient;
-    
+        return PatientDAO.getPatient(id);
     }
     
     @POST
@@ -50,20 +46,13 @@ public class PatientResource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void putPatient(@PathParam("id") long id, Patient updated) throws ResourceNotFoundException {
-        Patient patient = PatientDAO.getPatient(id);
-        if (patient == null) throw new ResourceNotFoundException();
-        
-        updated.setId(id);
-        PatientDAO.updatePatient(updated);
+        PatientDAO.updatePatient(id, updated);
     }
     
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public void deletePatient(@PathParam("id") long id) throws ResourceNotFoundException {
-        Patient patient = PatientDAO.getPatient(id);
-        if (patient == null) throw new ResourceNotFoundException();
-        
-        PatientDAO.deletePatient(patient, id);
+        PatientDAO.deletePatient(id);
     }
 }

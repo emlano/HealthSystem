@@ -5,6 +5,8 @@
 package com.github.emilano.healthsystem.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.emilano.healthsystem.dao.MedicalRecordDAO;
+import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
 
 /**
  *
@@ -12,27 +14,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class Patient extends Person {
     private String status;
-    private long historyId;
+    private MedicalRecord record;
     
-    public Patient(@JsonProperty("name") String name, @JsonProperty("contact") String contact, @JsonProperty("address") String address, @JsonProperty("status") String status, @JsonProperty("medicalRecordId") long historyId) {
+    public Patient(@JsonProperty("name") String name, @JsonProperty("contact") String contact, @JsonProperty("address") String address, @JsonProperty("status") String status, @JsonProperty("medicalRecordId") long historyId) throws ResourceNotFoundException {
         super(name, contact, address);
         this.status = status;
-        this.historyId = historyId;
+        this.record = MedicalRecordDAO.getMedicalRecord(historyId);
     }
     
     public void setStatus(String newStatus) {
         this.status = newStatus;
     }
     
-    public void setMedicalHistoryId(long newRecordId) {
-        this.historyId = newRecordId;
+    public void setMedicalHistory(long newRecordId) throws ResourceNotFoundException {
+        this.record = MedicalRecordDAO.getMedicalRecord(newRecordId);
     }
     
     public String getStatus() {
         return this.status;
     }
     
-    public long getMedicalRecordId() {
-        return this.historyId;
+    public MedicalRecord getMedicalRecordId() {
+        return this.record;
     }
 }

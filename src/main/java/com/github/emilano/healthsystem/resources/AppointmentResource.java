@@ -35,9 +35,7 @@ public class AppointmentResource {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Appointment getAppointment(@PathParam("id") long id) throws ResourceNotFoundException {
-        Appointment appt = AppointmentDAO.getAppointment(id);
-        if (appt == null) throw new ResourceNotFoundException();
-        return appt;
+        return AppointmentDAO.getAppointment(id);
     }
     
     @POST
@@ -53,20 +51,13 @@ public class AppointmentResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     public String putAppointment(@PathParam("id") long id, Appointment updated) throws ResourceNotFoundException {
-        Appointment appt = AppointmentDAO.getAppointment(id);
-        if (appt == null) throw new ResourceNotFoundException();
-        
-        updated.setId(id);
-        AppointmentDAO.updateAppointment(updated);
+        AppointmentDAO.updateAppointment(id,updated);
         return "Status: OK";
     }
     
     @DELETE
     @Path("/{id}")
     public void deleteAppointment(@PathParam("id") long id) throws ResourceNotFoundException {
-        Appointment appt = AppointmentDAO.getAppointment(id);
-        if (appt == null) throw new  ResourceNotFoundException();
-        
-        AppointmentDAO.deleteAppointment(appt, id);
+        AppointmentDAO.deleteAppointment(id);
     }
 }

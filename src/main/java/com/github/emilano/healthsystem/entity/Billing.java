@@ -5,6 +5,11 @@
 package com.github.emilano.healthsystem.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.emilano.healthsystem.dao.DoctorDAO;
+import com.github.emilano.healthsystem.dao.MedicalRecordDAO;
+import com.github.emilano.healthsystem.dao.PatientDAO;
+import com.github.emilano.healthsystem.dao.PrescriptionDAO;
+import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -67,48 +72,48 @@ public class Billing {
 
 
 class Invoice {
-    private long doctorId;
-    private long patientId;
-    private long recordId;
-    private long prescriptionId;
+    private Doctor doctor;
+    private Patient patient;
+    private MedicalRecord record;
+    private Prescription prescription;
     
-    public Invoice(@JsonProperty("doctorId") long doctorId, @JsonProperty("patientId") long patientId, @JsonProperty("recordId") long recordId, @JsonProperty("prescriptionId") long prescriptionId) {
-        this.doctorId = doctorId;
-        this.patientId = patientId;
-        this.recordId = recordId;
-        this.prescriptionId = prescriptionId;
+    public Invoice(@JsonProperty("doctorId") long doctorId, @JsonProperty("patientId") long patientId, @JsonProperty("recordId") long recordId, @JsonProperty("prescriptionId") long prescriptionId) throws ResourceNotFoundException {
+        this.doctor = DoctorDAO.getDoctor(doctorId);
+        this.patient = PatientDAO.getPatient(patientId);
+        this.record = MedicalRecordDAO.getMedicalRecord(recordId);
+        this.prescription = PrescriptionDAO.getPrescription(prescriptionId);
     }
     
-    public void setDoctorId(long doctorId) {
-        this.doctorId = doctorId;
+    public void setDoctor(long doctorId) throws ResourceNotFoundException {
+        this.doctor = DoctorDAO.getDoctor(doctorId);
     }
     
-    public void setPatientId(long patientId) {
-        this.patientId = patientId;
+    public void setPatient(long patientId) throws ResourceNotFoundException {
+        this.patient = PatientDAO.getPatient(patientId);
     }
     
-    public void setPatientRecordId(long recordId) {
-        this.recordId = recordId;
+    public void setPatientRecord(long recordId) throws ResourceNotFoundException {
+        this.record = MedicalRecordDAO.getMedicalRecord(recordId);
     }
     
-    public void setPrescriptionId(long prescriptionId) {
-        this.prescriptionId = prescriptionId;
+    public void setPrescription(long prescriptionId) throws ResourceNotFoundException {
+        this.prescription = PrescriptionDAO.getPrescription(prescriptionId);
     }
     
-    public long getDoctorId() {
-        return this.doctorId;
+    public Doctor getDoctor() {
+        return this.doctor;
     }
     
-    public long getPatientId() {
-        return this.patientId;
+    public Patient getPatient() {
+        return this.patient;
     }
     
-    public long getPatientRecordId() {
-        return this.recordId;
+    public MedicalRecord getMedicalRecord() {
+        return this.record;
     }
     
-    public long getPrescriptionId() {
-        return this.prescriptionId;
+    public Prescription getPrescription() {
+        return this.prescription;
     }
 }
 

@@ -34,9 +34,7 @@ public class PersonResource {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Person getPerson(@PathParam("id") int id) throws ResourceNotFoundException {
-        Person person = PersonDAO.getPerson(id);
-        if (person == null) throw new ResourceNotFoundException();
-        return person;
+        return PersonDAO.getPerson(id);
     }
     
     @POST
@@ -49,18 +47,12 @@ public class PersonResource {
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     public void putPerson(@PathParam("id") int id, Person updated) throws ResourceNotFoundException {
-        Person person = PersonDAO.getPerson(id);
-        if (person == null) throw new ResourceNotFoundException();
-        
-        updated.setId(person.getId());
-        PersonDAO.updatePerson(updated);
+        PersonDAO.updatePerson(id, updated);
     }
     
     @DELETE
     @Path("/{id}")
     public void deletePerson(@PathParam("id") int id) throws ResourceNotFoundException {
-        Person person = PersonDAO.getPerson(id);
-        if (person == null) throw new ResourceNotFoundException();
-        PersonDAO.deletePerson(person, id);
+        PersonDAO.deletePerson(id);
     }
 }

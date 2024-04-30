@@ -5,6 +5,9 @@
 package com.github.emilano.healthsystem.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.emilano.healthsystem.dao.DoctorDAO;
+import com.github.emilano.healthsystem.dao.PatientDAO;
+import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -17,14 +20,14 @@ public class Appointment {
     private long id;
     private String date;
     private String time;
-    private long doctorId;
-    private long patientId;
+    private Doctor doctor;
+    private Patient patient;
     
-    public Appointment(@JsonProperty("doctorId") long doctorId, @JsonProperty("patientId") long patientId) {
+    public Appointment(@JsonProperty("doctorId") long doctorId, @JsonProperty("patientId") long patientId) throws ResourceNotFoundException {
         this.date = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
         this.time = LocalTime.now().format(DateTimeFormatter.ISO_LOCAL_TIME);
-        this.doctorId = doctorId;
-        this.patientId = patientId;
+        this.doctor = DoctorDAO.getDoctor(doctorId);
+        this.patient = PatientDAO.getPatient(patientId);
     }
     
     public long getId() {
@@ -43,20 +46,20 @@ public class Appointment {
         this.time = time;
     }
     
-    public void setDoctorId(long newDoctorId) {
-        this.doctorId = newDoctorId;
+    public void setDoctor(long newDoctorId) throws ResourceNotFoundException {
+        this.doctor = DoctorDAO.getDoctor(newDoctorId);
     }
     
-    public void setPatientId(long newPatientId) {
-        this.patientId = newPatientId;
+    public void setPatient(long newPatientId) throws ResourceNotFoundException {
+        this.patient = PatientDAO.getPatient(newPatientId);
     }
     
-    public long getDoctorId() {
-        return this.doctorId;
+    public Doctor getDoctor() {
+        return this.doctor;
     }
     
-    public long getPatientId() {
-        return this.patientId;
+    public Patient getPatient() {
+        return this.patient;
     }
     
     public String getDate() {

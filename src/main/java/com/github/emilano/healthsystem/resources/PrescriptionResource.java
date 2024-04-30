@@ -34,9 +34,7 @@ public class PrescriptionResource {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Prescription getPrescription(@PathParam("id") long id) throws ResourceNotFoundException {
-        Prescription presc = PrescriptionDAO.getPrescription(id);
-        if (presc == null) throw new ResourceNotFoundException();
-        return presc;
+        return PrescriptionDAO.getPrescription(id);
     }
     
     @POST
@@ -49,19 +47,12 @@ public class PrescriptionResource {
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     public void putPrescription(@PathParam("id") long id, Prescription updated) throws ResourceNotFoundException {
-        Prescription prescription = PrescriptionDAO.getPrescription(id);
-        if (prescription == null) throw new ResourceNotFoundException();
-        
-        updated.setId(id);
-        PrescriptionDAO.updatePrescription(updated);
+        PrescriptionDAO.updatePrescription(id, updated);
     }
     
     @DELETE
     @Path("/{id}")
     public void deletePrescription(@PathParam("id") long id) throws ResourceNotFoundException {
-        Prescription presc = PrescriptionDAO.getPrescription(id);
-        if (presc == null) throw new ResourceNotFoundException();
-        
-        PrescriptionDAO.deletePrescription(presc, id);
+        PrescriptionDAO.deletePrescription(id);
     }
 }

@@ -34,9 +34,7 @@ public class MedicalRecordResource {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public MedicalRecord getRecord(@PathParam("id") long id) throws ResourceNotFoundException {
-        MedicalRecord record = MedicalRecordDAO.getMedicalRecord(id);
-        if (record == null) throw new ResourceNotFoundException();
-        return record;
+        return MedicalRecordDAO.getMedicalRecord(id);
     }
     
     @POST
@@ -49,18 +47,12 @@ public class MedicalRecordResource {
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     public void putRecord(@PathParam("id") long id, MedicalRecord updated) throws ResourceNotFoundException {
-        MedicalRecord record = MedicalRecordDAO.getMedicalRecord(id);
-        if (record == null) throw new ResourceNotFoundException();
-        
-        updated.setId(id);
-        MedicalRecordDAO.updateMedicaRecord(updated);
+        MedicalRecordDAO.updateMedicaRecord(id, updated);
     }
     
     @DELETE
     @Path("/{id}")
     public void deleteRecord(@PathParam("id") long id) throws ResourceNotFoundException {
-        MedicalRecord record = MedicalRecordDAO.getMedicalRecord(id);
-        if (record == null) throw new ResourceNotFoundException();
-        MedicalRecordDAO.deleteMedicalRecord(record, id);
+        MedicalRecordDAO.deleteMedicalRecord(id);
     }
 }

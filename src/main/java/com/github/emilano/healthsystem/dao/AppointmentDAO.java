@@ -6,6 +6,7 @@ package com.github.emilano.healthsystem.dao;
 
 import com.github.emilano.healthsystem.SharedUtils;
 import com.github.emilano.healthsystem.entity.*;
+import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,8 +22,10 @@ public class AppointmentDAO {
         return appointments.values();
     }
     
-    public static Appointment getAppointment(long id) {
-        return appointments.get(id);
+    public static Appointment getAppointment(long id) throws ResourceNotFoundException {
+        Appointment apt = appointments.get(id);
+        if (apt == null) throw new ResourceNotFoundException();
+        return apt;
     }
     
     public static void addAppointment(Appointment appt) {
@@ -31,11 +34,14 @@ public class AppointmentDAO {
         appointments.put(id, appt);
     }
     
-    public static void updateAppointment(Appointment appt) {
-        appointments.replace(appt.getId(), appt);
+    public static void updateAppointment(long id, Appointment appt) throws ResourceNotFoundException {
+        if (appointments.get(id) == null) throw new ResourceNotFoundException();
+        appt.setId(id);
+        appointments.replace(id, appt);
     }
     
-    public static void deleteAppointment(Appointment obj, long id) {
-        appointments.remove(obj, id);
+    public static void deleteAppointment(long id) throws ResourceNotFoundException {
+        if (appointments.get(id) == null) throw new ResourceNotFoundException();
+        appointments.remove(id);
     }
 }
