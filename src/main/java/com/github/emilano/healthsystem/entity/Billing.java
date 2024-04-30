@@ -79,35 +79,35 @@ class Invoice {
         this.prescriptionId = prescriptionId;
     }
     
-    public void setDoctor(long doctorId) {
+    public void setDoctorId(long doctorId) {
         this.doctorId = doctorId;
     }
     
-    public void setPatient(long patientId) {
+    public void setPatientId(long patientId) {
         this.patientId = patientId;
     }
     
-    public void setPatientRecord(long recordId) {
+    public void setPatientRecordId(long recordId) {
         this.recordId = recordId;
     }
     
-    public void setPrescription(long prescriptionId) {
+    public void setPrescriptionId(long prescriptionId) {
         this.prescriptionId = prescriptionId;
     }
     
-    public long getDoctor() {
+    public long getDoctorId() {
         return this.doctorId;
     }
     
-    public long getPatient() {
+    public long getPatientId() {
         return this.patientId;
     }
     
-    public long getPatientRecord() {
+    public long getPatientRecordId() {
         return this.recordId;
     }
     
-    public long getPrescription() {
+    public long getPrescriptionId() {
         return this.prescriptionId;
     }
 }

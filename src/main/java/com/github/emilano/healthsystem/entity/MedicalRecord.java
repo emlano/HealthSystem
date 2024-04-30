@@ -77,11 +77,11 @@ class Diagnosis {
         this.dateOfDiagnosis = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
     }
     
-    public void setDoctor(long doctorId) {
+    public void setDoctorId(long doctorId) {
         this.doctorId = doctorId;
     }
     
-    public long getDoctor() {
+    public long getDoctorId() {
         return this.doctorId;
     }
     
@@ -114,11 +114,11 @@ class Treatment {
         this.dateOfTreatment = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
     }
     
-    public void setDoctor(long doctor) {
+    public void setDoctorId(long doctor) {
         this.doctorId = doctorId;
     }
     
-    public long getDoctor() {
+    public long getDoctorId() {
         return this.doctorId;
     }
     

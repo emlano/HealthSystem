@@ -43,19 +43,19 @@ public class Appointment {
         this.time = time;
     }
     
-    public void setDoctor(long newDoctorId) {
+    public void setDoctorId(long newDoctorId) {
         this.doctorId = newDoctorId;
     }
     
-    public void setPatient(long newPatientId) {
+    public void setPatientId(long newPatientId) {
         this.patientId = newPatientId;
     }
     
-    public long getDoctor() {
+    public long getDoctorId() {
         return this.doctorId;
     }
     
-    public long getPatient() {
+    public long getPatientId() {
         return this.patientId;
     }
     

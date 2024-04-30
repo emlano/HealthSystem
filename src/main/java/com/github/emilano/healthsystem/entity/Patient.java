@@ -24,7 +24,7 @@ public class Patient extends Person {
         this.status = newStatus;
     }
     
-    public void setMedicalHistory(long newRecordId) {
+    public void setMedicalHistoryId(long newRecordId) {
         this.historyId = newRecordId;
     }
     
@@ -32,7 +32,7 @@ public class Patient extends Person {
         return this.status;
     }
     
-    public long getMedicalRecord() {
+    public long getMedicalRecordId() {
         return this.historyId;
     }
 }
