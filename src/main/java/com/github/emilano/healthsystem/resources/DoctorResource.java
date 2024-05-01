@@ -43,10 +43,11 @@ public class DoctorResource {
         return DoctorDAO.getDoctor(id);
     }
     
+    /* Get all appointments scheduled with the provided doctor */
     @GET
     @Path("/{id}/appointment")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Appointment> getScheduledAppointments(@PathParam("id")long id) {
+    public Collection<Appointment> getDoctorAppointments(@PathParam("id")long id) {
         ArrayList<Appointment> appts = new ArrayList<>();
         
         for (Appointment i : AppointmentDAO.getAllAppointments()) {

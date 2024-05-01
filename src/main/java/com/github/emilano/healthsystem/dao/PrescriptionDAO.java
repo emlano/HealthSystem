@@ -4,6 +4,7 @@
  */
 package com.github.emilano.healthsystem.dao;
 
+import com.github.emilano.healthsystem.entity.prescription.Prescription;
 import com.github.emilano.healthsystem.SharedUtils;
 import com.github.emilano.healthsystem.entity.*;
 import com.github.emilano.healthsystem.exception.ImproperOrBadRequestException;

@@ -5,7 +5,7 @@
 package com.github.emilano.healthsystem.resources;
 
 import com.github.emilano.healthsystem.dao.PrescriptionDAO;
-import com.github.emilano.healthsystem.entity.Prescription;
+import com.github.emilano.healthsystem.entity.prescription.Prescription;
 import com.github.emilano.healthsystem.exception.ImproperOrBadRequestException;
 import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
 import java.util.Collection;

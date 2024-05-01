@@ -46,12 +46,15 @@ public class AppointmentDAO {
         appointments.remove(id);
     }
     
+    // Guarantees the objects parsed from the Json inputs are correct, if there's any missing fields,
+    // object is rejected and a message is displayed to the user
     private static void checkAppointmentObject(Appointment appt) throws ImproperOrBadRequestException {
         if (appt == null) throw new ImproperOrBadRequestException("Appointment");
         if (appt.getDoctor() == null) throw new ImproperOrBadRequestException("Doctor");
         if (appt.getPatient() == null) throw new ImproperOrBadRequestException("Patient");
     }
     
+    // Checks to see if the provided key is directs to a valid value in the HashMap
     private static Appointment checkAppointmentKey(long id) throws ResourceNotFoundException {
         Appointment appt = appointments.get(id);
         if (appt == null) throw new ResourceNotFoundException("Appointment", id);

@@ -5,7 +5,9 @@
 package com.github.emilano.healthsystem.resources;
 
 import com.github.emilano.healthsystem.dao.BillingDAO;
-import com.github.emilano.healthsystem.entity.Billing;
+import com.github.emilano.healthsystem.entity.billing.Billing;
+import com.github.emilano.healthsystem.entity.billing.Payment;
+import com.github.emilano.healthsystem.exception.BillOverchargeException;
 import com.github.emilano.healthsystem.exception.ImproperOrBadRequestException;
 import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
 import java.util.Collection;
@@ -43,6 +45,26 @@ public class BillingResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String postBilling(Billing billing) throws ImproperOrBadRequestException {
         BillingDAO.addBilling(billing);
+        return "Status: OK";
+    }
+    
+    @POST
+    @Path("/{id}/payment")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    // 
+    public String postPayment(@PathParam("id") long id, Payment payment) throws Exception {
+        if (payment == null) throw new ImproperOrBadRequestException("Payment");
+        if (payment.getAmount() == 0) throw new ImproperOrBadRequestException("Amount");
+        
+        Billing bill = BillingDAO.getBilling(id);
+        // Make sure to not to overcharge the customer for the specific bill.
+        // ie: Payment amount cannot be more than the amount due.
+        if (payment.getAmount() > bill.getDueAmount()) 
+            throw new BillOverchargeException(payment.getAmount() - bill.getDueAmount(), id);
+        
+        bill.getPayments().add(payment);
+        bill.setDueAmount(bill.getDueAmount() - payment.getAmount());
         return "Status: OK";
     }
     

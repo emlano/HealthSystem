@@ -4,10 +4,13 @@
  */
 package com.github.emilano.healthsystem.resources;
 
+import com.github.emilano.healthsystem.dao.AppointmentDAO;
 import com.github.emilano.healthsystem.dao.PatientDAO;
+import com.github.emilano.healthsystem.entity.Appointment;
 import com.github.emilano.healthsystem.entity.Patient;
 import com.github.emilano.healthsystem.exception.ImproperOrBadRequestException;
 import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -36,6 +39,22 @@ public class PatientResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Patient getPatient(@PathParam("id") long id) throws ResourceNotFoundException {
         return PatientDAO.getPatient(id);
+    }
+    
+    /* Get all appointments booked by this patient */
+    @GET
+    @Path("/{id}/appointment/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Appointment> getPatientAppointments(@PathParam("id") long id) {
+        ArrayList<Appointment> appts = new ArrayList<>();
+        
+        for (Appointment i : AppointmentDAO.getAllAppointments()) {
+            if (i.getPatient() != null && i.getPatient().getId() == id) {
+                appts.add(i);
+            }
+        }
+        
+        return appts;
     }
     
     @POST

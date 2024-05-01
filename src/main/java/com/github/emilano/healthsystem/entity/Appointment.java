@@ -25,6 +25,9 @@ public class Appointment {
     private Doctor doctor;
     private Patient patient;
     
+    // Constructor takes in ids rather than json objects for specific fields. The ids are also checked in the respective data structures.
+    // This way, as an example, for Appointment a Doctor object and a Patient object must be present in their respective data structures,
+    // Otherwise the Appointment object would not be created. Constructor uses the DAOs to get the respective objects and stores them. 
     public Appointment(@JsonProperty("doctorId") long doctorId, @JsonProperty("patientId") long patientId) throws ResourceNotFoundException {
         this.date = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
         this.time = LocalTime.now().format(DateTimeFormatter.ISO_LOCAL_TIME);
@@ -48,6 +51,7 @@ public class Appointment {
         this.time = time;
     }
     
+    // As with the constructors, the setter follow similar rationale
     public void setDoctor(long newDoctorId) throws ResourceNotFoundException {
         this.doctor = DoctorDAO.getDoctor(newDoctorId);
     }

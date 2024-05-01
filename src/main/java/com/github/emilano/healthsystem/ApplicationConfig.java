@@ -11,7 +11,7 @@ import javax.ws.rs.Path;
  *
  * @author emilano
  */
-
+// Start point of the server, web.xml points here
 @Path("helloworld")
 public class ApplicationConfig {
     

@@ -4,6 +4,7 @@
  */
 package com.github.emilano.healthsystem.entity;
 
+import com.github.emilano.healthsystem.entity.medicalRecord.MedicalRecord;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.emilano.healthsystem.dao.MedicalRecordDAO;
