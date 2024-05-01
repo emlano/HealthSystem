@@ -66,6 +66,7 @@ public class PatientResource {
     }
     
     @PUT
+    @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     public String putPatient(@PathParam("id") long id, Patient updated) throws Exception {

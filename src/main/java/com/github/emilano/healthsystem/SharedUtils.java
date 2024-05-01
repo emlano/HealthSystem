@@ -13,10 +13,10 @@ import java.util.Map;
 // Used to generate a unique key for each objects
 public class SharedUtils {
     public static long getNextId(Map map) {
-        for (int i = 0; i < map.size(); i++) {
+        for (long i = 0; i <= map.size(); i++) {
             if (!map.containsKey(i)) return i;
         }
         
-        return map.size();
+        return map.size() + 1;
     }
 }
