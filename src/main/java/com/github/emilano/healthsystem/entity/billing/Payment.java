@@ -6,9 +6,6 @@ package com.github.emilano.healthsystem.entity.billing;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -20,10 +17,10 @@ public class Payment {
     private String date;
     private String time;
     
-    public Payment(@JsonProperty("amount") double amount) {
+    public Payment(@JsonProperty("amount") double amount, @JsonProperty("date") String date, @JsonProperty("time") String time) {
         this.amount = amount;
-        this.date = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
-        this.time = LocalTime.now().format(DateTimeFormatter.ISO_LOCAL_TIME);
+        this.date = date;
+        this.time = time;
     }
     
     public void setAmount(double amount) {

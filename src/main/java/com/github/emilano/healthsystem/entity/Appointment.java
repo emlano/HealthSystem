@@ -9,9 +9,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.emilano.healthsystem.dao.DoctorDAO;
 import com.github.emilano.healthsystem.dao.PatientDAO;
 import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -28,9 +25,9 @@ public class Appointment {
     // Constructor takes in ids rather than json objects for specific fields. The ids are also checked in the respective data structures.
     // This way, as an example, for Appointment a Doctor object and a Patient object must be present in their respective data structures,
     // Otherwise the Appointment object would not be created. Constructor uses the DAOs to get the respective objects and stores them. 
-    public Appointment(@JsonProperty("doctorId") long doctorId, @JsonProperty("patientId") long patientId) throws ResourceNotFoundException {
-        this.date = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
-        this.time = LocalTime.now().format(DateTimeFormatter.ISO_LOCAL_TIME);
+    public Appointment(@JsonProperty("doctorId") long doctorId, @JsonProperty("patientId") long patientId, @JsonProperty("date") String date, @JsonProperty("time") String time) throws ResourceNotFoundException {
+        this.date = date;
+        this.time = time;
         this.doctor = DoctorDAO.getDoctor(doctorId);
         this.patient = PatientDAO.getPatient(patientId);
     }

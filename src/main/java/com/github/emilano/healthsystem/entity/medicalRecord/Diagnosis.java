@@ -8,8 +8,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.emilano.healthsystem.dao.DoctorDAO;
 import com.github.emilano.healthsystem.entity.Doctor;
 import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -20,10 +18,10 @@ public class Diagnosis {
     private String diagnosis;
     private String dateOfDiagnosis;
     
-    public Diagnosis(@JsonProperty("doctorId") long doctorId, @JsonProperty("diagnosis") String diagnosis) throws ResourceNotFoundException {
+    public Diagnosis(@JsonProperty("doctorId") long doctorId, @JsonProperty("diagnosis") String diagnosis, @JsonProperty("dateOfDiagnosis") String dateOfDiagnosis) throws ResourceNotFoundException {
         this.doctor = DoctorDAO.getDoctor(doctorId);
         this.diagnosis = diagnosis;
-        this.dateOfDiagnosis = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
+        this.dateOfDiagnosis = dateOfDiagnosis;
     }
     
     public void setDoctor(long doctorId) throws ResourceNotFoundException {
