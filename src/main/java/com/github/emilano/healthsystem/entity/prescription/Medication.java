@@ -11,18 +11,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author emilano
  */
 public class Medication {
-    private String dosage;
+    private String medicine;
     private String instructions;
     private String duration;
 
-    public Medication(@JsonProperty("dosage") String dosage, @JsonProperty("instructions") String instructions, @JsonProperty("duration") String duration) {
-        this.dosage = dosage;
+    public Medication(@JsonProperty("medicine") String dosage, @JsonProperty("instructions") String instructions, @JsonProperty("duration") String duration) {
+        this.medicine = dosage;
         this.duration = duration;
         this.instructions = instructions;
     }
     
-    public void setDosage(String dosage) {
-        this.dosage = dosage;
+    public void setMedicine(String dosage) {
+        this.medicine = dosage;
     }
     
     public void setInstructions(String instructions) {
@@ -33,8 +33,8 @@ public class Medication {
         this.duration = duration;
     }
     
-    public String getDosage() {
-        return this.dosage;
+    public String getMedicine() {
+        return this.medicine;
     }
     
     public String getInstructions() {

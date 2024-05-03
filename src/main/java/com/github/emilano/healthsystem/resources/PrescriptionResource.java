@@ -9,6 +9,7 @@ import com.github.emilano.healthsystem.entity.prescription.Prescription;
 import com.github.emilano.healthsystem.exception.ImproperOrBadRequestException;
 import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
 import java.util.Collection;
+import java.util.logging.Logger;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -25,40 +26,74 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("/prescription")
 public class PrescriptionResource {
+    private Logger logger = Logger.getLogger(PrescriptionResource.class.getName());
+   
+    /*
+    URI: localhost:8080/HealthSystem/v1/prescription/
+    */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<Prescription> getAllPrescriptions() {
+        logger.info("GET request /prescription");
         return PrescriptionDAO.getAllPrescriptions();
     }
     
+    /*
+    URI: localhost:8080/HealthSystem/v1/prescription/{id}
+    */
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Prescription getPrescription(@PathParam("id") long id) throws ResourceNotFoundException {
+        logger.info("GET request /prescription/{id} with id " + id);
         return PrescriptionDAO.getPrescription(id);
     }
     
+    /*
+    URI: localhost:8080/HealthSystem/v1/prescription/
+    {
+        "medications": []
+    }
+    */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     public String postPrescription(Prescription prescription) throws ImproperOrBadRequestException {
+        logger.info("POST request /prescription");
         PrescriptionDAO.addPrescription(prescription);
         return "Status: OK";
     }
     
+    /*
+    URI: localhost:8080/HealthSystem/v1/prescription/{id}
+    {
+        "medications": [
+            {
+                "medicine": "Placebo",
+                "instructions": "Once a day",
+                "duration": "For six months"
+            }
+        ]
+    }
+    */
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     public String putPrescription(@PathParam("id") long id, Prescription updated) throws Exception {
+        logger.info("PUT request /prescription/{id} with id " + id);
         PrescriptionDAO.updatePrescription(id, updated);
         return "Status: OK";
     }
     
+    /*
+    URI: localhost:8080/HealthSystem/v1/prescription/{id}
+    */
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.TEXT_PLAIN)
     public String deletePrescription(@PathParam("id") long id) throws ResourceNotFoundException {
+        logger.info("DELETE request /prescription/{id} with id " + id);
         PrescriptionDAO.deletePrescription(id);
         return "Status: OK";
     }

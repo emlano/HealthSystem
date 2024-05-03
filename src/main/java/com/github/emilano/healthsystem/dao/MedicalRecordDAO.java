@@ -6,7 +6,6 @@ package com.github.emilano.healthsystem.dao;
 
 import com.github.emilano.healthsystem.entity.medicalRecord.MedicalRecord;
 import com.github.emilano.healthsystem.SharedUtils;
-import com.github.emilano.healthsystem.entity.*;
 import com.github.emilano.healthsystem.exception.ImproperOrBadRequestException;
 import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
 import java.util.Collection;

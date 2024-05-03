@@ -12,7 +12,7 @@ import com.github.emilano.healthsystem.exception.ImproperOrBadRequestException;
 import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.logging.Logger;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -30,24 +30,38 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/doctor")
 public class DoctorResource {
+    private Logger logger = Logger.getLogger(DoctorResource.class.getName());
+    
+    /*
+    URI: localhost:8080/HealthSystem/v1/doctor/
+    */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<Doctor> getAllDoctors() {
+        logger.info("GET request at /doctor");
         return DoctorDAO.getAllDoctors();
     }
     
+    /*
+    URI: localhost:8080/HealthSystem/v1/doctor/{id}
+    */
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Doctor getDoctor(@PathParam("id") long id) throws ResourceNotFoundException {
+        logger.info("GET request at /doctor/{id} with id " + id);
         return DoctorDAO.getDoctor(id);
     }
     
-    /* Get all appointments scheduled with the provided doctor */
+    /*
+    Get all appointments scheduled with the provided doctor
+    URI: localhost:8080/HealthSystem/v1/doctor/{id}/appointment
+    */
     @GET
     @Path("/{id}/appointment")
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<Appointment> getDoctorAppointments(@PathParam("id")long id) {
+        logger.info("GET request at /doctor/{id}/appointment");
         ArrayList<Appointment> appts = new ArrayList<>();
         
         for (Appointment i : AppointmentDAO.getAllAppointments()) {
@@ -57,27 +71,53 @@ public class DoctorResource {
         return appts;
     }
     
+    /*
+    URI: localhost:8080/HealthSystem/v1/doctor/
+    {
+        "name": "John H. Watson",
+        "contact": "876",
+        "address": "221b Baker Street",
+        "officeContact": "111",
+        "specialization": "Surgery"
+    }
+    */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String postDoctor(@PathParam("id") long id, Doctor doctor) throws ImproperOrBadRequestException {
+    public String postDoctor(Doctor doctor) throws ImproperOrBadRequestException {
+        logger.info("POST request at /doctor");
         DoctorDAO.addDoctor(doctor);
         return "Status: OK";
     }
     
+    /*
+    URI: localhost:8080/HealthSystem/v1/doctor/{id}
+    {
+        "name": "John H. Watson",
+        "contact": "876",
+        "address": "221b Baker Street",
+        "officeContact": "111",
+        "specialization": "General Practice"
+    }
+    */
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     public String putDoctor(@PathParam("id") long id, Doctor updated) throws Exception {
+        logger.info("PUT request at /doctor/{id} with id " + id);
         DoctorDAO.updateDoctor(id, updated);
         return "Status: OK";
     }
     
+    /*
+    URI: localhost:8080/HealthSystem/v1/doctor/{id}
+    */
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.TEXT_PLAIN)
     public String deleteDoctor(@PathParam("id") long id) throws ResourceNotFoundException {
+        logger.info("DELETE request at /doctor/{id} with id " + id);
         DoctorDAO.deleteDoctor(id);
         return "Status: OK";
     }

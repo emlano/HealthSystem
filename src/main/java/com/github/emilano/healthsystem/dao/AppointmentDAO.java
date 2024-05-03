@@ -52,6 +52,8 @@ public class AppointmentDAO {
         if (appt == null) throw new ImproperOrBadRequestException("Appointment");
         if (appt.getDoctor() == null) throw new ImproperOrBadRequestException("Doctor");
         if (appt.getPatient() == null) throw new ImproperOrBadRequestException("Patient");
+        if (appt.getDate() == null) throw new ImproperOrBadRequestException("Date");
+        if (appt.getTime() == null) throw new ImproperOrBadRequestException("Time");
     }
     
     // Checks to see if the provided key is directs to a valid value in the HashMap
