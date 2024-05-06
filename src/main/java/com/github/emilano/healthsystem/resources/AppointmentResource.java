@@ -9,7 +9,6 @@ import com.github.emilano.healthsystem.entity.Appointment;
 import com.github.emilano.healthsystem.exception.ImproperOrBadRequestException;
 import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
 import java.util.Collection;
-import java.util.logging.Logger;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -19,6 +18,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -27,7 +28,7 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/appointment")
 public class AppointmentResource {
-    private Logger logger = Logger.getLogger(AppointmentResource.class.getName());
+    private Logger logger = LoggerFactory.getLogger(AppointmentResource.class.getName());
     
     /*
     URI: localhost:8080/HealthSystem/v1/appointment/

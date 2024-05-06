@@ -5,11 +5,12 @@
 package com.github.emilano.healthsystem.exception.mapper;
 
 import com.github.emilano.healthsystem.exception.ResourceNotFoundException;
-import java.util.logging.Logger;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -17,12 +18,12 @@ import javax.ws.rs.ext.Provider;
  */
 @Provider
 public class ResourceNotFoundExceptionMapper implements ExceptionMapper<ResourceNotFoundException> {
-    private Logger logger = Logger.getLogger(ResourceNotFoundExceptionMapper.class.getName());
+    private Logger logger = LoggerFactory.getLogger(ResourceNotFoundException.class.getName());
     @Override
     public Response toResponse(ResourceNotFoundException e) {
-        logger.warning("Error: Resource was not found!");
+        logger.warn("Error: Resource was not found!");
         for (StackTraceElement i : e.getStackTrace()) {
-            logger.warning(i.toString());
+            logger.warn(i.toString());
         }
         return Response
                 .status(Response.Status.NOT_FOUND)

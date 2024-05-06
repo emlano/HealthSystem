@@ -5,11 +5,12 @@
 package com.github.emilano.healthsystem.exception.mapper;
 
 import com.github.emilano.healthsystem.exception.BillOverchargeException;
-import java.util.logging.Logger;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -17,12 +18,12 @@ import javax.ws.rs.ext.Provider;
  */
 @Provider
 public class BillOverchargeExceptionMapper implements ExceptionMapper<BillOverchargeException> {
-    private Logger logger = Logger.getLogger(BillOverchargeExceptionMapper.class.getName());
+    private Logger logger = LoggerFactory.getLogger(BillOverchargeException.class.getName());
     @Override
     public Response toResponse(BillOverchargeException e) {
-        logger.warning("Error: Attempted to over pay bill!");
+        logger.warn("Error: Attempted to over pay bill!");
         for (StackTraceElement i : e.getStackTrace()) {
-            logger.warning(i.toString());
+            logger.warn(i.toString());
         }
         
         return Response
